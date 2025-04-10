@@ -1,0 +1,30 @@
+img {
+    display: inline;
+    width: 30%;
+    /* sets the width */
+    height: auto;
+    /* maintains aspect ratio */
+    border-radius: 10px;
+    /* rounded corners */
+    border: 2px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 200px;
+    height: 200px;
+    color: black;
+    border-style: none;
+    border-radius: 50%;
+    appearance: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 45pt;
+    text-align: center;
+    line-height: 80%;
+    background-color: rgba(255, 50, 0, 255);
+
+
+}
