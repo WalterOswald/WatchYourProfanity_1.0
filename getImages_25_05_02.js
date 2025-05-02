@@ -96,6 +96,7 @@ class imageObject {
     setStyle(prop, units, value) {
         this.style[prop] = value + units        //Generic varaiables. This function generaly 
         this.img.style[prop] = value + units
+        console.log(this.x);
         //handles inputs for styling
 
     }
@@ -111,11 +112,19 @@ document.getElementById("sliderW").addEventListener("change", function (event) {
     imgArray[0].setStyle("width", "vw", sliderWidth) // here the setStyle() function dynamicaly 
 });                                                  //gets filled with proppertys for prop-->width, units-->vw,value-->sldierWidth
 
+
+
+
 document.getElementById("sliderX").addEventListener("change", function (event) {
     this.x = sliderX.value;
 
-    imgArray[0].setStyle("left", "vw", this.x)
+    imgArray[0].setStyle("left", "vw", this.x);
 });
+
+
+
+
+//Default Display setup/ global code
 
 window.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < images.length; i++) {
@@ -124,4 +133,14 @@ window.addEventListener("DOMContentLoaded", () => {
         imgArray.push(imageObj);
         imageObj.placeOnPage(preview);
     }
+});
+
+
+
+
+window.addEventListener("DOMContentLoaded", function (event) {
+    let initPosition = Math.random(20);
+    this.x = initPosition;
+
+    imgArray[0].setStyle("left", "vw", this.x);
 });
