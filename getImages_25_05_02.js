@@ -9,7 +9,7 @@ let sliderWidth, sliderPosX
 
 let imgObjWidth, imgObjHeight, imgObjBorderRadious
 
-var images = ["IMG/IMGCount.png", "IMG/IMGCount4.png"];
+var images = ["IMG/IMGCount.png", "IMG/IMGCount4.png", "IMG/IMGCount3.png", "IMG/IMGCount2.png", "IMG/IMGCount5.png"];
 
 
 
@@ -139,8 +139,20 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
 window.addEventListener("DOMContentLoaded", function (event) {
-    let initPosition = Math.random(20);
-    this.x = initPosition;
 
-    imgArray[0].setStyle("left", "vw", this.x);
+    for (i = 0; i < imgArray.length; i++) {
+        let initPosition = getRandomInt(50);
+        this.x = initPosition;
+        imgArray[i].setStyle("left", "vw", this.x);
+    }
 });
+
+
+
+
+
+
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
