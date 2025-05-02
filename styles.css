@@ -1,18 +1,18 @@
 img {
-    display: inline;
+    /* display: inline;
     width: 30%;
     /* sets the width */
-    height: auto;
+    /* height: auto;
     /* maintains aspect ratio */
-    border-radius: 10px;
+    /* border-radius: 10px;
     /* rounded corners */
-    border: 2px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /*border: 2px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
 }
 
 .btn {
-    position: fixed;
-    top: 20px;
+
+    display: block;
     left: 20px;
     width: 200px;
     height: 200px;
@@ -25,6 +25,15 @@ img {
     text-align: center;
     line-height: 80%;
     background-color: rgba(255, 50, 0, 255);
+
+
+}
+
+.UX {
+
+    display: block;
+    width: 100vw;
+    height: 50px;
 
 
 }
