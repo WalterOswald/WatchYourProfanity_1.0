@@ -115,6 +115,17 @@ document.getElementById("sliderW").addEventListener("change", function (event) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 document.getElementById("sliderX").addEventListener("change", function (event) {
     this.x = sliderX.value;
 
