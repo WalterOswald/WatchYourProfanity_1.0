@@ -9,11 +9,7 @@ let sliderWidth, sliderPosX
 
 let imgObjWidth, imgObjHeight, imgObjBorderRadious
 
-var images = ["IMG/IMGCount.png",
-    "IMG/IMGCount2.png",
-    "IMG/IMGCount3.png",
-    "IMG/IMGCount4.png",
-    "IMG/IMGCount5.png",];
+var images = ["IMG/IMGCount.png", "IMG/IMGCount4.png"];
 
 
 
@@ -54,10 +50,25 @@ class imageObject {
 
 
 
-    constructor(file, imgObjWidth, imgObjHeight, imgObjBorderRadious) {
-        this.file = file;
+    constructor(fileOrUrl, imgObjWidth, imgObjHeight, imgObjBorderRadious) {
+        //this.file = file;
+
+
+
         this.img = document.createElement("img");
-        this.img.src = URL.createObjectURL(file);
+
+        if (typeof fileOrUrl === "string") {
+            this.img.src = fileOrUrl;
+        } else {
+            this.file = fileOrUrl;
+            this.img.src = URL.createObjectURL(fileOrUrl);
+        }
+
+
+
+
+
+        // this.img.src = URL.createObjectURL(file);
         //this.img.width = imgObjWidth;
         //this.img.height = imgObjHeight;
         this.borderRadius = imgObjBorderRadious
@@ -104,4 +115,13 @@ document.getElementById("sliderX").addEventListener("change", function (event) {
     this.x = sliderX.value;
 
     imgArray[0].setStyle("left", "vw", this.x)
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+    for (let i = 0; i < images.length; i++) {
+        const imageObj = new imageObject(images[i], 100, 100);
+        imageObj.name = "ImgObj-" + i;
+        imgArray.push(imageObj);
+        imageObj.placeOnPage(preview);
+    }
 });
