@@ -4,12 +4,31 @@ const fileSelect = document.getElementById("fileSelect"),//where you upload file
     sliderX = document.getElementById("sliderX");
 //container
 
+
+
+//1px = (100vw / [document.documentElement.clientWidth] px)
+
+
 //let ImgObjName = ""
 let sliderWidth, sliderPosX
 
 let imgObjWidth, imgObjHeight, imgObjBorderRadious
 
-var images = ["IMG/IMGCount.png", "IMG/IMGCount4.png", "IMG/IMGCount3.png", "IMG/IMGCount2.png", "IMG/IMGCount5.png"];
+var images = ["IMG/IMGCount.png", "IMG/IMGCount2.png", "IMG/IMGCount3.png", "IMG/IMGCount4.png", "IMG/IMGCount5.png"];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -75,7 +94,9 @@ class imageObject {
         this.x
         this.y
         this.z
-        this.style = {}             //generic atribute, can contain any style property 
+        this.style = {}
+        this.vwValue
+        this.vhValue        //generic atribute, can contain any style property 
         // this.img.style.borderRadius = ImgborderRadius
         this.img.style.position = "absolute"
 
@@ -84,13 +105,90 @@ class imageObject {
     }
 
 
+    dragElement(elm) {
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+
+
+        // otherwise, move the DIV from anywhere inside the DIV:
+        elm.onmousedown = dragMouseDown;
+
+
+        function dragMouseDown(e) {
+            e = e || window.Event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.Event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            valuetoConvertX = (elm.offsetLeft - pos1) + "px";
+            valuetoConvertY = (elm.offsetTop - pos2) + "px";
+
+            vwValue = viewport_convert(valuetoConvertX, 0, 0);
+            vhValue = viewport_convert(valuetoConvertY, 0, 0);
+
+        }
+
+        function closeDragElement() {
+            // stop moving when mouse button is released:
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+
+
+
+
+    viewport_convert(px = 0, vw = 0, vh = 0) {
+        if (px != 0) {
+            if (vw) {
+                return (100 * px / window.innerWidth);
+            } else {
+                return (100 * px / window.innerHeight);
+            }
+        } else if (vw != 0 && vh != 0) {
+            var w_h_arr = [];
+            w_h_arr["width"] = Math.ceil((window.innerWidth * vw / 100));
+            w_h_arr["height"] = Math.ceil((window.innerHeight * vh / 100));
+            return w_h_arr;
+        } else if (vw != 0) {
+            return Math.ceil((window.innerWidth * vw / 100));
+        } else if (vh != 0) {
+            return Math.ceil((window.innerHeight * vh / 100));
+        }
+    }
+
+
+
+
+
 
 
 
     placeOnPage(elm) {
-        elm.appendChild(this.img);
 
-        console.log(this.name)
+        for (let i = 0; i < imgArray.length; i++) {
+            this.img.id = 'IMG-Object' + imgArray.length;
+
+            this.dragElement(this.img);
+            (this.img).id = 'IMG-Object' + i;
+            elm.appendChild(this.img);
+            console.log(this.name)
+        }
+
     }
 
     setStyle(prop, units, value) {
@@ -111,6 +209,9 @@ document.getElementById("sliderW").addEventListener("change", function (event) {
 
     imgArray[0].setStyle("width", "vw", sliderWidth) // here the setStyle() function dynamicaly 
 });                                                  //gets filled with proppertys for prop-->width, units-->vw,value-->sldierWidth
+
+
+
 
 
 
