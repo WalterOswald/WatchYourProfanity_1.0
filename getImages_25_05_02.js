@@ -1,47 +1,35 @@
+////////////////////////////////////////////–1Setup
+
+
 const fileSelect = document.getElementById("fileSelect"),//where you upload files
     fileElem = document.getElementById("fileElem"),//<input id="fileElem" type="file" multiple />
     preview = document.getElementById("preview"), sliderW = document.getElementById("sliderW"),
     sliderX = document.getElementById("sliderX");
-//container
 
 
 
-//1px = (100vw / [document.documentElement.clientWidth] px)
-
-
-//let ImgObjName = ""
 let sliderWidth, sliderPosX
 
 let imgObjWidth, imgObjHeight, imgObjBorderRadious
 
 var images = ["IMG/IMGCount.png", "IMG/IMGCount2.png", "IMG/IMGCount3.png", "IMG/IMGCount4.png", "IMG/IMGCount5.png"];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const imgArray = [];
 
+
+
+
+
+
+////////////////////////////////////////////–2FileUpload
+
+
 fileElem.addEventListener("change", handleFiles, false);
-
-
-
 //the "change" listens to wether a file was uploaded, the handle files function then awaits an (event)
 //in this case the "change" 
+
+
+
 function handleFiles(event) {
     //GetSliderValue()
     //creates an <ul> in the container "preview"
@@ -62,6 +50,15 @@ function handleFiles(event) {
 
 
 }
+
+
+
+
+
+
+
+
+////////////////////////////////////////////–3ImageObjectConstructor
 
 
 class imageObject {
@@ -105,6 +102,14 @@ class imageObject {
     }
 
 
+
+
+
+
+
+    ////////////////////////////////////////////–3.1ImageObject//DragElem
+
+
     dragElement(elm) {
         var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
@@ -134,11 +139,14 @@ class imageObject {
             pos3 = e.clientX;
             pos4 = e.clientY;
             // set the element's new position:
-            valuetoConvertX = (elm.offsetLeft - pos1) + "px";
-            valuetoConvertY = (elm.offsetTop - pos2) + "px";
+            elm.style.top = (elm.offsetTop - pos2) + "px";
+            elm.style.left = (elm.offsetLeft - pos1) + "px";
 
-            vwValue = viewport_convert(valuetoConvertX, 0, 0);
-            vhValue = viewport_convert(valuetoConvertY, 0, 0);
+            //valuetoConvertX = (elm.offsetLeft - pos1) + "px";
+            // valuetoConvertY = (elm.offsetTop - pos2) + "px";
+
+            //vwValue = (elm.offsetLeft - pos1) + "px";//viewport_convert(valuetoConvertX, 0, 0);
+            //vhValue = (elm.offsetTop - pos2) + "px";//viewport_convert(valuetoConvertY, 0, 0);
 
         }
 
@@ -150,6 +158,15 @@ class imageObject {
     }
 
 
+
+
+
+
+
+
+
+
+    ////////////////////////////////////////////–3.2ImageObject//vievportConvertValueVwPx
 
 
     viewport_convert(px = 0, vw = 0, vh = 0) {
@@ -172,6 +189,11 @@ class imageObject {
     }
 
 
+
+
+
+
+    ////////////////////////////////////////////–3.3ImageObject//Functions
 
 
 
@@ -203,25 +225,20 @@ class imageObject {
 
 }
 
-//Global Code for INPUT
+
+
+
+
+
+
+////////////////////////////////////////////–4Global Code// INPUT++GUI
+
+
 document.getElementById("sliderW").addEventListener("change", function (event) {
     sliderWidth = sliderW.value;
 
     imgArray[0].setStyle("width", "vw", sliderWidth) // here the setStyle() function dynamicaly 
 });                                                  //gets filled with proppertys for prop-->width, units-->vw,value-->sldierWidth
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -258,9 +275,6 @@ window.addEventListener("DOMContentLoaded", function (event) {
         imgArray[i].setStyle("left", "vw", this.x);
     }
 });
-
-
-
 
 
 
