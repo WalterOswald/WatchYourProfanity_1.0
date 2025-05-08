@@ -208,7 +208,7 @@ class imageObject {
             this.dragElement(this.img);
             (this.img).id = 'IMG-Object' + i;
             elm.appendChild(this.img);
-            console.log(this.name)
+            // console.log(this.name)
         }
 
     }
@@ -216,7 +216,7 @@ class imageObject {
     setStyle(prop, units, value) {
         this.style[prop] = value + units        //Generic varaiables. This function generaly 
         this.img.style[prop] = value + units
-        console.log(this.x);
+        // console.log(this.x);
         //handles inputs for styling
 
     }
@@ -282,3 +282,8 @@ window.addEventListener("DOMContentLoaded", function (event) {
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
+
+
+
+
+
