@@ -13,13 +13,14 @@
 
     <span class="UX">
         <div class="interactiveElem">
+            <input id="fileElem" class="btn" type="file" multiple />
             <input id="sliderW" type="range" min="0" max="10vw" value="2" step=".5">
             <input id="sliderX" type="range" min="0" max="10vw" value="2" step=".5">
+            <button onclick="download_file( 'Test.html' , dynamic_text())" , id="export" class="btn"></button>
         </div>
     </span>
 
 
-    <input id="fileElem" class="btn" type="file" multiple />
 
     <a href="#" id="fileSelect"></a>
 
@@ -27,6 +28,7 @@
     <div id="preview"></div>
     <div id="fileList">
         <script src="getImages_25_05_02.js"></script>
+        <script src="25.08.05_ExtractPage.js"></script>
 
     </div>
 </body>
