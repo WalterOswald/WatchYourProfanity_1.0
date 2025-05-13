@@ -1,5 +1,5 @@
 
-let dynamic_html_content;
+let dynamic_html_content = "";
 
 
 document.getElementById("export").addEventListener("click", () => {

@@ -1,5 +1,5 @@
 ////////////////////////////////////////////–1Setup
-
+import resizeImage from './convertImage.js';
 
 const fileSelect = document.getElementById("fileSelect"),//where you upload files
     fileElem = document.getElementById("fileElem"),//<input id="fileElem" type="file" multiple />
@@ -12,13 +12,13 @@ let sliderWidth, sliderPosX
 
 let imgObjWidth, imgObjHeight, imgObjBorderRadious
 
-var images = ["IMG/IMGCount.png", "IMG/IMGCount2.png", "IMG/IMGCount3.png", "IMG/IMGCount4.png", "IMG/IMGCount5.png"];
+//var images = [ "IMG/IMGCount.png", "IMG/IMGCount2.png", "IMG/IMGCount3.png", "IMG/IMGCount4.png", "IMG/IMGCount5.png"];
 
-const imgArray = [];
-
-
+//const imgArray = ["IMG/IMGCount.png", "IMG/IMGCount2.png", "IMG/IMGCount3.png", "IMG/IMGCount4.png", "IMG/IMGCount5.png"];
 
 
+
+const imgArray = []
 
 
 ////////////////////////////////////////////–2FileUpload
@@ -30,7 +30,7 @@ fileElem.addEventListener("change", handleFiles, false);
 
 
 
-function handleFiles(event) {
+async function handleFiles(event) {
     //GetSliderValue()
     //creates an <ul> in the container "preview"
     const files = event.target.files;   //.files is a FileList object, holds the selected files.
@@ -39,8 +39,12 @@ function handleFiles(event) {
 
     for (let i = 0; i < files.length; i++) {
 
-        const imageObj = new imageObject(files[i], 100, 100); // size is being set here
+        // const imageObj = new imageObject(files[i], 100, 100); // size is being set here
 
+        const resizedBlob = await resizeImage(files[i], 200, 200);
+        const resizedFile = new File([resizedBlob], files[i].name, { type: 'image/webp' });
+        const imageObj = new imageObject(resizedFile, 100, 100);
+        console.log(files[0])
         imageObj.name = "ImgObj-" + i
         imgArray.push(imageObj);
         imageObj.placeOnPage(preview);  //on 
@@ -66,7 +70,7 @@ class imageObject {
 
 
 
-    constructor(fileOrUrl, imgObjWidth, imgObjHeight, imgObjBorderRadious) {
+    constructor(fileOrUrl, x, y, z, imgObjBorderRadious) {
         //this.file = file;
 
 
@@ -88,9 +92,9 @@ class imageObject {
         //this.img.width = imgObjWidth;
         //this.img.height = imgObjHeight;
         this.borderRadius = imgObjBorderRadious
-        this.x
-        this.y
-        this.z
+        this.x = 0
+        this.y = 0
+        this.z = 0
         this.style = {}
         this.vwValue
         this.vhValue        //generic atribute, can contain any style property 
@@ -200,6 +204,20 @@ class imageObject {
 
 
 
+    setStyle(prop, units, value) {
+        this.style[prop] = value + units        //Generic varaiables. This function generaly 
+        this.img.style[prop] = value + units
+        // console.log(this.x);
+        //handles inputs for styling
+
+    }
+
+    setRandomPos() {
+        this.x = getRandomInt(50);
+        this.setStyle("left", "vw", this.x)
+
+    }
+
     placeOnPage(elm) {
 
         for (let i = 0; i < imgArray.length; i++) {
@@ -210,14 +228,6 @@ class imageObject {
             elm.appendChild(this.img);
             // console.log(this.name)
         }
-
-    }
-
-    setStyle(prop, units, value) {
-        this.style[prop] = value + units        //Generic varaiables. This function generaly 
-        this.img.style[prop] = value + units
-        // console.log(this.x);
-        //handles inputs for styling
 
     }
 
@@ -256,25 +266,27 @@ document.getElementById("sliderX").addEventListener("change", function (event) {
 //Default Display setup/ global code
 
 window.addEventListener("DOMContentLoaded", () => {
-    for (let i = 0; i < images.length; i++) {
-        const imageObj = new imageObject(images[i], 100, 100);
+    for (let i = 0; i < imgArray.length; i++) {
+        const imageObj = new imageObject(imgArray[i], 100, 100);
+        imageObj.setStyle("left", "vw", getRandomInt(50));
         imageObj.name = "ImgObj-" + i;
         imgArray.push(imageObj);
         imageObj.placeOnPage(preview);
+
     }
 });
 
 
 
 
-window.addEventListener("DOMContentLoaded", function (event) {
+// window.addEventListener("DOMContentLoaded", function (event) {
 
-    for (i = 0; i < imgArray.length; i++) {
-        let initPosition = getRandomInt(50);
-        this.x = initPosition;
-        imgArray[i].setStyle("left", "vw", this.x);
-    }
-});
+//     for (let i = 0; i < imgArray.length; i++) {
+//         let initPosition = getRandomInt(50);
+//         this.x = initPosition;
+//         imgArray[i].setStyle("left", "vw", this.x);
+//     }
+// });
 
 
 
