@@ -39,9 +39,11 @@ async function handleFiles(event) {
 
     for (let i = 0; i < files.length; i++) {
 
-        // const imageObj = new imageObject(files[i], 100, 100); // size is being set here
 
-        const resizedBlob = await resizeImage(files[i], 200, 200);
+
+        // const imageObj = new imageObject(files[i], 100, 100); // size is being set here
+        const dimensions = await getImageDimensions(files[i]);
+        const resizedBlob = await resizeImage(files[i], dimensions.width, dimensions.height);
         const resizedFile = new File([resizedBlob], files[i].name, { type: 'image/webp' });
         const imageObj = new imageObject(resizedFile, 100, 100);
         console.log(files[0])
@@ -53,6 +55,19 @@ async function handleFiles(event) {
 
 
 
+}
+
+
+
+function getImageDimensions(file) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = function () {
+            resolve({ width: img.naturalWidth, height: img.naturalHeight });
+        };
+        img.onerror = reject;
+        img.src = URL.createObjectURL(file);
+    });
 }
 
 
@@ -70,7 +85,7 @@ class imageObject {
 
 
 
-    constructor(fileOrUrl, x, y, z, imgObjBorderRadious) {
+    constructor(fileOrUrl, x, y, z) {
         //this.file = file;
 
 
@@ -91,10 +106,10 @@ class imageObject {
         // this.img.src = URL.createObjectURL(file);
         //this.img.width = imgObjWidth;
         //this.img.height = imgObjHeight;
-        this.borderRadius = imgObjBorderRadious
-        this.x = 0
-        this.y = 0
-        this.z = 0
+
+        this.x = x
+        this.y = y
+        this.z = z
         this.style = {}
         this.vwValue
         this.vhValue        //generic atribute, can contain any style property 
@@ -105,8 +120,29 @@ class imageObject {
 
     }
 
+    ////////////////////////////////////////////–3.0ImageObjectActive/passive
+
+    focusImage(elm) {
+        var pos5 = 0, pos6 = 0, pos7 = 0, pos8 = 0;
+        let isActive = false
+
+        function klickOnImage(e) {
+            e = e || window.Event;
+            // get the mouse cursor position at startup:
+            pos5 = e.clientX;
+            pos6 = e.clientY;
+            document.onclick = setImgAsActive;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+        }
 
 
+        function setImgAsActive(e) {
+            let isActive = true;
+            console.log("yeyy")
+        };
+
+    }
 
 
 
