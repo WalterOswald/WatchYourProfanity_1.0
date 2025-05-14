@@ -1,4 +1,6 @@
 
+let dynamic_html_content = "";
+
 
 document.getElementById("export").addEventListener("click", () => {
     document.querySelector('#preview').querySelectorAll('img').forEach((e) => {
@@ -9,20 +11,29 @@ document.getElementById("export").addEventListener("click", () => {
 })
 
 
-//document.getElementById("export").addEventListener("click", download_file()) // Blob()
 
 
 
+function gatherHtmlElms() {
+
+    const images = document.querySelector('#preview').querySelectorAll('img')
+
+
+    images.forEach((e) => {
+
+
+        dynamic_html_content += e.outerHTML;
+        console.log("outerhtml" + e.outerHTML);
+
+    });
+
+}
 // Use: outerHTML property // cloneNode() method
 
 
 function dynamic_text() {
-
-
-
-
-
-    return "create your dynamic text here";
+    gatherHtmlElms();
+    return dynamic_html_content;
 }
 
 function download_file(name, contents, mime_type) {
@@ -43,9 +54,16 @@ function download_file(name, contents, mime_type) {
 
     dlink.click();
     dlink.remove();
-
-    console.log("click")
+    console.log(dynamic_html_content + "test");
+    //console.log("click")
 }
+
+
+
+
+
+
+
 
 
 
