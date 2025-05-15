@@ -114,6 +114,7 @@ class imageObject {
         this.vhValue        //generic atribute, can contain any style property 
         // this.img.style.borderRadius = ImgborderRadius
         this.img.style.position = "absolute"
+        this.img.style.width = "5vw"
 
 
 
