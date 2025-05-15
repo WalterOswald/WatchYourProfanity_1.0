@@ -49,15 +49,35 @@ export default async function resizeImage(file, sizeW, sizeH) {
     ctx.drawImage(bitmap, 0, 0, width, height, x, y, canvas.width, canvas.height)
 
     //
+    // let base64 = canvas.toDataURL("image/webp")//.split(";base64,")[1]
+    // //console.log(base64)
+    // var tempImg = document.createElement("img");
+    // tempImg.onload = function () {
+    //     document.body.appendChild(this);
+    // }
+    // // document.body.appendChild(tempImg);
+    // tempImg.src = base64
+
 
 
     return new Promise(resolve => {
-        canvas.toBlob((blob) => {
-            console.log(blob)
-            resolve(blob);
 
-        }, 'image/webp', 1)
-        //
+
+
+
+        let base64 = canvas.toDataURL("image/webp")//.split(";base64,")[1]
+        resolve(base64)
+
+        // canvas.toDataURL("image/webp")
+        // // canvas.toBlob((blob) => {
+
+        // //     const reader = new FileReader();
+        // //     reader.onload = () => resolve(reader.result);
+        // //     reader.readAsDataURL(blob);
+        // //     console.log("reader result:" + resolve(reader.result))
+
+        // // }, 'image/webp', 1)
+        // // //
     });
 
 }

@@ -31,8 +31,8 @@ fileElem.addEventListener("change", handleFiles, false);
 
 
 async function handleFiles(event) {
-    //GetSliderValue()
-    //creates an <ul> in the container "preview"
+
+
     const files = event.target.files;   //.files is a FileList object, holds the selected files.
 
 
@@ -41,15 +41,17 @@ async function handleFiles(event) {
 
 
 
-        // const imageObj = new imageObject(files[i], 100, 100); // size is being set here
+
         const dimensions = await getImageDimensions(files[i]);
-        const resizedBlob = await resizeImage(files[i], dimensions.width, dimensions.height);
-        const resizedFile = new File([resizedBlob], files[i].name, { type: 'image/webp' });
-        const imageObj = new imageObject(resizedFile, 100, 100);
-        console.log(files[0])
+
+        const resizedBase64 = await resizeImage(files[i], dimensions.width, dimensions.height);
+
+        //const resizedFile = new File([resizedBase64], files[i].name, { type: 'image/webp' });
+        const imageObj = new imageObject(resizedBase64, dimensions.width, dimensions.height);
+
         imageObj.name = "ImgObj-" + i
         imgArray.push(imageObj);
-        imageObj.placeOnPage(preview);  //on 
+        imageObj.placeOnPage(preview);
 
     }
 
@@ -58,6 +60,7 @@ async function handleFiles(event) {
 }
 
 
+////////////////////////////////////////////–2.1//Get image Width/height
 
 function getImageDimensions(file) {
     return new Promise((resolve, reject) => {
@@ -96,16 +99,12 @@ class imageObject {
             this.img.src = fileOrUrl;
         } else {
             this.file = fileOrUrl;
-            this.img.src = URL.createObjectURL(fileOrUrl);
+            this.img.src = URL.createObjectURL(fileOrUrl);//fileOrUrl //
+            console.log(this.img.src)
         }
 
 
 
-
-
-        // this.img.src = URL.createObjectURL(file);
-        //this.img.width = imgObjWidth;
-        //this.img.height = imgObjHeight;
 
         this.x = x
         this.y = y
@@ -257,10 +256,10 @@ class imageObject {
     placeOnPage(elm) {
 
         for (let i = 0; i < imgArray.length; i++) {
-            this.img.id = 'IMG-Object' + imgArray.length;
+            (this.img).id = 'IMG-Object' + i;
+
 
             this.dragElement(this.img);
-            (this.img).id = 'IMG-Object' + i;
             elm.appendChild(this.img);
             // console.log(this.name)
         }
@@ -301,16 +300,16 @@ document.getElementById("sliderX").addEventListener("change", function (event) {
 
 //Default Display setup/ global code
 
-window.addEventListener("DOMContentLoaded", () => {
-    for (let i = 0; i < imgArray.length; i++) {
-        const imageObj = new imageObject(imgArray[i], 100, 100);
-        imageObj.setStyle("left", "vw", getRandomInt(50));
-        imageObj.name = "ImgObj-" + i;
-        imgArray.push(imageObj);
-        imageObj.placeOnPage(preview);
+// window.addEventListener("DOMContentLoaded", () => {
+//     for (let i = 0; i < imgArray.length; i++) {
+//         const imageObj = new imageObject(imgArray[i], 100, 100);
+//         imageObj.setStyle("left", "vw", getRandomInt(50));
+//         imageObj.name = "ImgObj-" + i;
+//         imgArray.push(imageObj);
+//         imageObj.placeOnPage(preview);
 
-    }
-});
+//     }
+// });
 
 
 
