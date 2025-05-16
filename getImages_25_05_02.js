@@ -11,14 +11,10 @@ const fileSelect = document.getElementById("fileSelect"),//where you upload file
 let sliderWidth, sliderPosX
 
 let imgObjWidth, imgObjHeight, imgObjBorderRadious
-
-//var images = [ "IMG/IMGCount.png", "IMG/IMGCount2.png", "IMG/IMGCount3.png", "IMG/IMGCount4.png", "IMG/IMGCount5.png"];
-
-//const imgArray = ["IMG/IMGCount.png", "IMG/IMGCount2.png", "IMG/IMGCount3.png", "IMG/IMGCount4.png", "IMG/IMGCount5.png"];
+let activeImageObject = null;
 
 
-
-const imgArray = []
+export const imgArray = [];
 
 
 ////////////////////////////////////////////–2FileUpload
@@ -43,10 +39,7 @@ async function handleFiles(event) {
 
 
         const dimensions = await getImageDimensions(files[i]);
-
         const resizedBase64 = await resizeImage(files[i], dimensions.width, dimensions.height);
-
-        //const resizedFile = new File([resizedBase64], files[i].name, { type: 'image/webp' });
         const imageObj = new imageObject(resizedBase64, dimensions.width, dimensions.height);
 
         imageObj.name = "ImgObj-" + i
@@ -61,6 +54,9 @@ async function handleFiles(event) {
 
 
 ////////////////////////////////////////////–2.1//Get image Width/height
+
+
+
 
 function getImageDimensions(file) {
     return new Promise((resolve, reject) => {
@@ -88,7 +84,7 @@ class imageObject {
 
 
 
-    constructor(fileOrUrl, x, y, z) {
+    constructor(fileOrUrl, x, y, z, isActive) {
         //this.file = file;
 
 
@@ -114,6 +110,8 @@ class imageObject {
         this.vhValue        //generic atribute, can contain any style property 
         // this.img.style.borderRadius = ImgborderRadius
         this.img.style.position = "absolute"
+        this.img.style.width = "5vw"
+        this.isActive = false
 
 
 
@@ -121,30 +119,35 @@ class imageObject {
 
     ////////////////////////////////////////////–3.0ImageObjectActive/passive
 
+
+
     focusImage(elm) {
-        var pos5 = 0, pos6 = 0, pos7 = 0, pos8 = 0;
-        let isActive = false
-
-        function klickOnImage(e) {
-            e = e || window.Event;
-            // get the mouse cursor position at startup:
-            pos5 = e.clientX;
-            pos6 = e.clientY;
-            document.onclick = setImgAsActive;
-            // call a function whenever the cursor moves:
-            document.onmousemove = elementDrag;
-        }
-
-
-        function setImgAsActive(e) {
-            let isActive = true;
-            console.log("yeyy")
-        };
-
+        activeImageObject = this;
+        this.isActive = true;
+        console.log("ActiveImageElement", elm);
     }
 
 
+    // focusImage() {
 
+    //     if (imgArray.length === 0) {
+    //         console.log("broke out");
+    //         return;
+    //     }
+
+
+    //     for (let i = 0; i < imgArray.length; i++) {
+
+    //         const focusedElem = document.getElementById("IMG-Object" + i)
+
+    //         focusedElem.onclick = () => {
+    //             this.isActive = true;
+    //             console.log(this.isActive.valueOf())
+    //         }
+
+    //     }
+
+    // }
 
     ////////////////////////////////////////////–3.1ImageObject//DragElem
 
@@ -177,15 +180,18 @@ class imageObject {
             pos2 = pos4 - e.clientY;
             pos3 = e.clientX;
             pos4 = e.clientY;
-            // set the element's new position:
-            elm.style.top = (elm.offsetTop - pos2) + "px";
-            elm.style.left = (elm.offsetLeft - pos1) + "px";
 
-            //valuetoConvertX = (elm.offsetLeft - pos1) + "px";
-            // valuetoConvertY = (elm.offsetTop - pos2) + "px";
 
-            //vwValue = (elm.offsetLeft - pos1) + "px";//viewport_convert(valuetoConvertX, 0, 0);
-            //vhValue = (elm.offsetTop - pos2) + "px";//viewport_convert(valuetoConvertY, 0, 0);
+            const newTop = elm.offsetTop - pos2;
+            const newLeft = elm.offsetLeft - pos1;
+
+            const topVH = viewport_convert(newTop, 0, 1)
+            const leftVW = viewport_convert(newLeft, 1, 0)
+
+
+            elm.style.top = topVH + "vh"
+            elm.style.left = leftVW + "vw"
+
 
         }
 
@@ -194,6 +200,28 @@ class imageObject {
             document.onmouseup = null;
             document.onmousemove = null;
         }
+
+
+
+        function viewport_convert(px = 0, vw = 0, vh = 0) {
+            if (px != 0) {
+                if (vw) {
+                    return (100 * px / window.innerWidth);
+                } else {
+                    return (100 * px / window.innerHeight);
+                }
+            } else if (vw != 0 && vh != 0) {
+                var w_h_arr = [];
+                w_h_arr["width"] = Math.ceil((window.innerWidth * vw / 100));
+                w_h_arr["height"] = Math.ceil((window.innerHeight * vh / 100));
+                return w_h_arr;
+            } else if (vw != 0) {
+                return Math.ceil((window.innerWidth * vw / 100));
+            } else if (vh != 0) {
+                return Math.ceil((window.innerHeight * vh / 100));
+            }
+        }
+
     }
 
 
@@ -242,8 +270,7 @@ class imageObject {
     setStyle(prop, units, value) {
         this.style[prop] = value + units        //Generic varaiables. This function generaly 
         this.img.style[prop] = value + units
-        // console.log(this.x);
-        //handles inputs for styling
+
 
     }
 
@@ -260,6 +287,7 @@ class imageObject {
 
 
             this.dragElement(this.img);
+            this.img.onclick = () => this.focusImage(this.img)
             elm.appendChild(this.img);
             // console.log(this.name)
         }
@@ -281,9 +309,11 @@ class imageObject {
 
 document.getElementById("sliderW").addEventListener("change", function (event) {
     sliderWidth = sliderW.value;
+    if (!activeImageObject) {
+        console.error("noImageLoaded");
+    } else { activeImageObject.setStyle("width", "vw", sliderWidth) }
 
-    imgArray[0].setStyle("width", "vw", sliderWidth) // here the setStyle() function dynamicaly 
-});                                                  //gets filled with proppertys for prop-->width, units-->vw,value-->sldierWidth
+});
 
 
 
@@ -294,36 +324,6 @@ document.getElementById("sliderX").addEventListener("change", function (event) {
 
     imgArray[0].setStyle("left", "vw", this.x);
 });
-
-
-
-
-//Default Display setup/ global code
-
-// window.addEventListener("DOMContentLoaded", () => {
-//     for (let i = 0; i < imgArray.length; i++) {
-//         const imageObj = new imageObject(imgArray[i], 100, 100);
-//         imageObj.setStyle("left", "vw", getRandomInt(50));
-//         imageObj.name = "ImgObj-" + i;
-//         imgArray.push(imageObj);
-//         imageObj.placeOnPage(preview);
-
-//     }
-// });
-
-
-
-
-// window.addEventListener("DOMContentLoaded", function (event) {
-
-//     for (let i = 0; i < imgArray.length; i++) {
-//         let initPosition = getRandomInt(50);
-//         this.x = initPosition;
-//         imgArray[i].setStyle("left", "vw", this.x);
-//     }
-// });
-
-
 
 
 function getRandomInt(max) {
