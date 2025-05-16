@@ -11,9 +11,10 @@ const fileSelect = document.getElementById("fileSelect"),//where you upload file
 let sliderWidth, sliderPosX
 
 let imgObjWidth, imgObjHeight, imgObjBorderRadious
+let activeImageObject = null;
 
 
-const imgArray = []
+export const imgArray = [];
 
 
 ////////////////////////////////////////////–2FileUpload
@@ -54,6 +55,9 @@ async function handleFiles(event) {
 
 ////////////////////////////////////////////–2.1//Get image Width/height
 
+
+
+
 function getImageDimensions(file) {
     return new Promise((resolve, reject) => {
         const img = new Image();
@@ -80,7 +84,7 @@ class imageObject {
 
 
 
-    constructor(fileOrUrl, x, y, z) {
+    constructor(fileOrUrl, x, y, z, isActive) {
         //this.file = file;
 
 
@@ -107,6 +111,7 @@ class imageObject {
         // this.img.style.borderRadius = ImgborderRadius
         this.img.style.position = "absolute"
         this.img.style.width = "5vw"
+        this.isActive = false
 
 
 
@@ -114,30 +119,35 @@ class imageObject {
 
     ////////////////////////////////////////////–3.0ImageObjectActive/passive
 
+
+
     focusImage(elm) {
-        var pos5 = 0, pos6 = 0, pos7 = 0, pos8 = 0;
-        let isActive = false
-
-        function klickOnImage(e) {
-            e = e || window.Event;
-            // get the mouse cursor position at startup:
-            pos5 = e.clientX;
-            pos6 = e.clientY;
-            document.onclick = setImgAsActive;
-            // call a function whenever the cursor moves:
-            document.onmousemove = elementDrag;
-        }
-
-
-        function setImgAsActive(e) {
-            let isActive = true;
-            console.log("yeyy")
-        };
-
+        activeImageObject = this;
+        this.isActive = true;
+        console.log("ActiveImageElement", elm);
     }
 
 
+    // focusImage() {
 
+    //     if (imgArray.length === 0) {
+    //         console.log("broke out");
+    //         return;
+    //     }
+
+
+    //     for (let i = 0; i < imgArray.length; i++) {
+
+    //         const focusedElem = document.getElementById("IMG-Object" + i)
+
+    //         focusedElem.onclick = () => {
+    //             this.isActive = true;
+    //             console.log(this.isActive.valueOf())
+    //         }
+
+    //     }
+
+    // }
 
     ////////////////////////////////////////////–3.1ImageObject//DragElem
 
@@ -277,6 +287,7 @@ class imageObject {
 
 
             this.dragElement(this.img);
+            this.img.onclick = () => this.focusImage(this.img)
             elm.appendChild(this.img);
             // console.log(this.name)
         }
@@ -298,9 +309,11 @@ class imageObject {
 
 document.getElementById("sliderW").addEventListener("change", function (event) {
     sliderWidth = sliderW.value;
+    if (!activeImageObject) {
+        console.error("noImageLoaded");
+    } else { activeImageObject.setStyle("width", "vw", sliderWidth) }
 
-    imgArray[0].setStyle("width", "vw", sliderWidth) // here the setStyle() function dynamicaly 
-});                                                  //gets filled with proppertys for prop-->width, units-->vw,value-->sldierWidth
+});
 
 
 
