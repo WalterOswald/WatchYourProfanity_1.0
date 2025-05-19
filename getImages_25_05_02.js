@@ -12,8 +12,8 @@ let sliderWidth, sliderPosX
 
 let imgObjWidth, imgObjHeight, imgObjBorderRadious
 let activeImageObject = null;
-
-
+let gridMarginX = 5;
+let gridMarginY = 0;
 export const imgArray = [];
 
 
@@ -43,6 +43,7 @@ async function handleFiles(event) {
         const imageObj = new imageObject(resizedBase64, dimensions.width, dimensions.height);
 
         imageObj.name = "ImgObj-" + i
+        imageObj.setGridPos(imgArray.length);
         imgArray.push(imageObj);
         imageObj.placeOnPage(preview);
 
@@ -128,26 +129,6 @@ class imageObject {
     }
 
 
-    // focusImage() {
-
-    //     if (imgArray.length === 0) {
-    //         console.log("broke out");
-    //         return;
-    //     }
-
-
-    //     for (let i = 0; i < imgArray.length; i++) {
-
-    //         const focusedElem = document.getElementById("IMG-Object" + i)
-
-    //         focusedElem.onclick = () => {
-    //             this.isActive = true;
-    //             console.log(this.isActive.valueOf())
-    //         }
-
-    //     }
-
-    // }
 
     ////////////////////////////////////////////–3.1ImageObject//DragElem
 
@@ -274,17 +255,25 @@ class imageObject {
 
     }
 
-    setRandomPos() {
-        this.x = getRandomInt(50);
-        this.setStyle("left", "vw", this.x)
+    setGridPos(index) {
+
+        gridMarginX
+        gridMarginY = 0;
+
+        this.x = index * gridMarginX;
+        this.y = gridMarginY;
+
+        this.setStyle("left", "vw", this.x);
+        this.setStyle("top", "vh", this.y);
+
 
     }
 
     placeOnPage(elm) {
+        this.setGridPos(elm)
 
         for (let i = 0; i < imgArray.length; i++) {
             (this.img).id = 'IMG-Object' + i;
-
 
             this.dragElement(this.img);
             this.img.onclick = () => this.focusImage(this.img)
@@ -315,7 +304,10 @@ document.getElementById("sliderW").addEventListener("change", function (event) {
 
 });
 
-
+document.getElementById("inputOffX").addEventListener("change", (event) => {
+    gridMarginX = inputOffX.value
+    console.log(gridMarginX)
+})
 
 
 

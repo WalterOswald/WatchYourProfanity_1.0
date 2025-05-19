@@ -1,10 +1,26 @@
 img {
-  position: absolute;
   width: 5vw;
-  left: 82 vw;
+  left: 72 vw;
+  z-index: 0;
+}
+
+.fileElem {
+  all: unset;
+  appearance: none;
+  width: 200px;
+  height: 200px;
+  color: black;
+  border-style: none;
+  border-radius: 50%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25pt;
+  text-align: center;
+  line-height: 80%;
+  align-self: center;
 }
 
 .btn {
+  appearance: none;
   display: block;
   left: 20px;
   width: 200px;
@@ -12,18 +28,63 @@ img {
   color: black;
   border-style: none;
   border-radius: 50%;
-  appearance: none;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 45pt;
   text-align: center;
   line-height: 80%;
   background-color: rgb(255, 50, 0);
+  align-self: center;
 }
 
-.UX {
+#UI {
+  position: absolute;
+  display: flex;
+  z-index: 9;
+  background-color: #f1f1f1;
+  border: 1px solid #d3d3d3;
+  text-align: center;
+  align-content: center;
+}
+
+.preview {
+  z-index: 0;
+}
+
+#UIheader {
+  font-family: sans-serif;
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  background-color: #000;
+  color: #fff;
+}
+
+.sliderContainer {
   display: block;
-  width: 100vw;
-  height: 50px;
+  background-color: black;
 }
 
-/*# sourceMappingURL=styles.css.map */
+input[type=range] {
+  width: 300px;
+  height: 30px;
+  margin: 10px;
+  appearance: none;
+  background: #000;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  height: 8px;
+  background: whitesmoke;
+  border-radius: 0px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  appearance: none;
+  width: 50px;
+  height: 50px;
+  background: greenyellow;
+  border-radius: 100%;
+  cursor: pointer;
+  margin-top: -20px;
+  /* align with track */
+}/*# sourceMappingURL=styles.css.map */
