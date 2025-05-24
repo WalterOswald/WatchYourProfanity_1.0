@@ -1,6 +1,6 @@
 img {
   width: 5vw;
-  left: 72 vw;
+  left: 175 vw;
   z-index: 0;
 }
 
@@ -23,8 +23,8 @@ img {
   appearance: none;
   display: block;
   left: 20px;
-  width: 200px;
-  height: 200px;
+  width: 5vw;
+  height: 5vw;
   color: black;
   border-style: none;
   border-radius: 50%;
@@ -36,14 +36,25 @@ img {
   align-self: center;
 }
 
+#checkbox1 {
+  width: 5vw;
+}
+
+#svgFileElem {
+  background-color: greenyellow;
+}
+
 #UI {
   position: absolute;
+  height: 10vw;
   display: flex;
   z-index: 9;
   background-color: #f1f1f1;
   border: 1px solid #d3d3d3;
   text-align: center;
   align-content: center;
+  border-top-right-radius: 200px;
+  border-bottom-right-radius: 200px;
 }
 
 .preview {
@@ -53,15 +64,15 @@ img {
 #UIheader {
   font-family: sans-serif;
   padding: 10px;
+  margin-right: 10px;
   cursor: move;
   z-index: 10;
   background-color: #000;
-  color: #fff;
 }
 
 .sliderContainer {
   display: block;
-  background-color: black;
+  background-color: rgb(244, 244, 244);
 }
 
 input[type=range] {
@@ -69,12 +80,12 @@ input[type=range] {
   height: 30px;
   margin: 10px;
   appearance: none;
-  background: #000;
+  background: hotpink;
 }
 
 input[type=range]::-webkit-slider-runnable-track {
   height: 8px;
-  background: whitesmoke;
+  background: rgb(255, 0, 0);
   border-radius: 0px;
 }
 
@@ -87,4 +98,18 @@ input[type=range]::-webkit-slider-thumb {
   cursor: pointer;
   margin-top: -20px;
   /* align with track */
+}
+
+.svgContainer {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+}
+
+#inputOffX {
+  width: 5vw;
+  width: fit-content;
+  font-size: 5vw;
+  text-align: center;
+  border-style: none;
 }/*# sourceMappingURL=styles.css.map */

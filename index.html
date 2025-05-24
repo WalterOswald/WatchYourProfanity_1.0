@@ -16,14 +16,28 @@
         <div id="UIheader"></div>
 
         <input class="btn" id="fileElem" type="file" multiple hidden />
+        <input class="btn" id="svgFileElem" type="file" multiple hidden />
         <div class="sliderContainer">
             <input class="slider" id="sliderW" type="range" min="0" max="10vw" value="2" step=".5">
             <input class="slider" id="sliderX" type="range" min="0" max="10vw" value="2" step=".5">
         </div>
         <input type="number" name="offset x" id="inputOffX" min="1" max="100">
+        <input type="checkbox" name="placeOnPath" id="checkbox1">
         <button onclick="download_file( 'Test.html' , dynamic_text())" , id="export" class="btn"></button>
     </div>
+    <div class="svgContainer">
+        <svg>
 
+            <path id="svgShape" fill="red" d="M 10,30
+                         A 20,20 0,0,1 50,30
+                         A 20,20 0,0,1 90,30
+                         Q 90,60 50,90
+                         Q 10,60 10,30 z" />
+
+
+
+        </svg>
+    </div>
 
 
 
@@ -37,6 +51,7 @@
         <script type="module" src="getImages_25_05_02.js"></script>
         <script src="25.08.05_ExtractPage.js"></script>
         <script src="dragUi.js"></script>
+        <script type="module" src="imagesOnPath.js"></script>
 
     </div>
 </body>
