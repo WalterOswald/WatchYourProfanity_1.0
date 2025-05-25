@@ -18,13 +18,14 @@ export const svgPoints = [];
 fileSelect.addEventListener("change", handleSVG, false);
 
 
-async function handleSVG(event) {
+export async function handleSVG(event) {
 
     const svgFiles = event.target.files;
 
     const svgBlob = new Blob(svgFiles, { type: "image/svg+xml" });
 
-    const svgReader = new FileReader();
+    const svgReader = new FileReader(); //fires asyncronisly, meaning that it will independantly run and return, whilst other functions lower down the execution order will fire befor it.
+
 
     svgReader.addEventListener("load", (event) => {
 
@@ -35,39 +36,24 @@ async function handleSVG(event) {
 
 
         if (svgReader.result.includes("polygon")) {
-            let svgPoly = doc.querySelector("svg polygon")
 
-            console.log(svgPoly.points + "type: Polygon")
-
+            prcsPolygon(doc)
 
 
         } else if (svgReader.result.includes("line")) {
-            let svgLine = doc.querySelector("svg line")
-            console.log("type: Line")
 
-
+            prcsLine(doc)
 
         } else if (svgReader.result.includes("path")) {
 
+            prcsPath(doc)
 
-            return new promise
-            let svgPath = doc.querySelector("svg path")
-            const totalLenght = svgPath.getTotalLength();
-            let numberOfSamples = imgArray.length;
-            for (let i = 0; i < numberOfSamples; i++) {
-
-                const svgPts = svgPath.getPointAtLength(i * 2)
-                svgPoints.push({ x: svgPts.x, y: svgPts.y })
-
-
-
-            }
-
-
-            console.log(svgPoints + " type: Path")
-
-
+            console.log(" type: result" + svgPoints)
         }
+        console.log("SVG loaded and processed");
+
+
+
 
 
         console.log(svgReader.result)
@@ -78,15 +64,44 @@ async function handleSVG(event) {
 
 
 
-
     });
     svgReader.readAsText(svgBlob);
 
 
+
+
+}
+
+export async function prcsPolygon(doc) {
+    let svgPoly = doc.querySelector("svg polygon")
+
+    console.log(svgPoly.points + "type: Polygon")
 }
 
 
 
+export async function prcsLine(doc) {
+    let svgLine = doc.querySelector("svg line")
+    console.log("type: Line")
+}
 
+
+
+export async function prcsPath(doc) {
+    let svgPath = doc.querySelector("svg path")
+    const totalLenght = svgPath.getTotalLength();
+    let numberOfSamples = imgArray.length;
+
+    svgPoints.length = 0;
+
+    for (let i = 0; i < numberOfSamples; i++) {
+
+        const svgPts = svgPath.getPointAtLength(i * 2)
+        svgPoints.push({ x: svgPts.x, y: svgPts.y })
+
+
+
+    }
+}
 
 // get bBox

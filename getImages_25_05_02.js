@@ -1,10 +1,9 @@
 ////////////////////////////////////////////–1Setup
 import resizeImage from './convertImage.js';
 
-import { svgPoints } from './imagesOnPath.js';
+import { handleSVG, svgPoints } from './imagesOnPath.js';
 
-const fileSelect = document.getElementById("fileSelect"),//where you upload files
-    fileElem = document.getElementById("fileElem"),//<input id="fileElem" type="file" multiple />
+const fileElem = document.getElementById("fileElem"),//<input id="fileElem" type="file" multiple />
     preview = document.getElementById("preview"), sliderW = document.getElementById("sliderW"),
     sliderX = document.getElementById("sliderX"), placeOnPath = document.getElementById("checkbox1");
 
@@ -276,32 +275,38 @@ class imageObject {
 
 
         if (checkbox1.checked) {
-            for (let i = 0; i < imgArray.length; i++) {
 
-                console.log(svgPoints[i])
 
+            handleSVG().then(() => {
+                for (let i = 0; i < imgArray.length; i++) {
                     (this.img).id = 'IMG-Object' + i;
 
-
-
-                this.dragElement(this.img);
-                this.img.onclick = () => this.focusImage(this.img)
-                elm.appendChild(this.img);
-                // console.log(this.name)
-            }
+                    this.dragElement(this.img);
+                    this.img.onclick = () => this.focusImage(this.img)
+                    elm.appendChild(this.img);
+                    console.log("svgsAreLoaded: " + svgPoints[i])
+                }
+            });
 
 
             console.log("checked")
         } else {
 
+
             for (let i = 0; i < imgArray.length; i++) {
+
+                //console.log(svgPoints[i])
+
                 (this.img).id = 'IMG-Object' + i;
+
+
 
                 this.dragElement(this.img);
                 this.img.onclick = () => this.focusImage(this.img)
                 elm.appendChild(this.img);
                 // console.log(this.name)
             }
+
         }
 
 
