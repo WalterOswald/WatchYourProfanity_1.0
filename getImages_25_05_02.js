@@ -5,7 +5,8 @@ import { handleSVG, svgPoints } from './imagesOnPath.js';
 
 const fileElem = document.getElementById("fileElem"),//<input id="fileElem" type="file" multiple />
     preview = document.getElementById("preview"), sliderW = document.getElementById("sliderW"),
-    sliderX = document.getElementById("sliderX"), placeOnPath = document.getElementById("checkbox1");
+    sliderX = document.getElementById("sliderX"), placeOnPath = document.getElementById("checkbox1"),
+    svgFileElem = document.getElementById("svgFileElem");
 
 
 
@@ -98,7 +99,7 @@ class imageObject {
         } else if (typeof fileOrUrl === "img") {
             this.file = fileOrUrl;
             this.img.src = URL.createObjectURL(fileOrUrl);//fileOrUrl //
-            console.log(this.img.src)
+
         }
 
 
@@ -126,7 +127,7 @@ class imageObject {
     focusImage(elm) {
         activeImageObject = this;
         this.isActive = true;
-        console.log("ActiveImageElement", elm);
+
     }
 
 
@@ -170,7 +171,7 @@ class imageObject {
             const topVH = viewport_convert(newTop, 0, 1)
             const leftVW = viewport_convert(newLeft, 1, 0)
 
-
+            //DEBUG: redo in terms of function setStyle()
             elm.style.top = topVH + "vh"
             elm.style.left = leftVW + "vw"
 
@@ -271,35 +272,47 @@ class imageObject {
     }
 
     placeOnPage(elm) {
-        this.setGridPos(elm)
+
 
 
         if (checkbox1.checked) {
 
+            svgFileElem.addEventListener("change", (event) => {
+                handleSVG(event).then(() => {
 
-            handleSVG().then(() => {
-                for (let i = 0; i < imgArray.length; i++) {
-                    (this.img).id = 'IMG-Object' + i;
+                    for (let i = 0; i < imgArray.length; i++) {
 
-                    this.dragElement(this.img);
-                    this.img.onclick = () => this.focusImage(this.img)
-                    elm.appendChild(this.img);
-                    console.log("svgsAreLoaded: " + svgPoints[i])
-                }
-            });
 
+                        const imgObj = imgArray[i];
+                        const points = svgPoints[i];
+
+
+                        console.log("svgPoints: " + points)
+                        imgObj.x = points.x
+                        imgObj.y = points.y
+
+                        imgObj.setStyle("top", "px", imgObj.x)
+                        imgObj.setStyle("left", "px", imgObj.y)
+                        imgObj.id = 'IMG-Object' + i;
+                        imgObj.dragElement(imgObj.img);
+                        imgObj.img.onclick = () => imgObj.focusImage(imgObj.img)
+                        elm.appendChild(imgObj.img);
+                        //console.log("svgPoints: " + svgPoints[i].x)
+                    }
+
+                });
+            })
 
             console.log("checked")
         } else {
 
+            this.setGridPos(elm)
 
             for (let i = 0; i < imgArray.length; i++) {
 
-                //console.log(svgPoints[i])
+
 
                 (this.img).id = 'IMG-Object' + i;
-
-
 
                 this.dragElement(this.img);
                 this.img.onclick = () => this.focusImage(this.img)
@@ -337,7 +350,7 @@ document.getElementById("sliderW").addEventListener("change", function (event) {
 
 document.getElementById("inputOffX").addEventListener("change", (event) => {
     gridMarginX = inputOffX.value
-    console.log(gridMarginX)
+
 })
 
 

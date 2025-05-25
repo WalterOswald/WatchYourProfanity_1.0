@@ -15,60 +15,64 @@ export const svgPoints = [];
 
 
 
-fileSelect.addEventListener("change", handleSVG, false);
+//fileSelect.addEventListener("change", handleSVG, false);
 
 
 export async function handleSVG(event) {
 
-    const svgFiles = event.target.files;
+    return new Promise((resolve) => {
 
-    const svgBlob = new Blob(svgFiles, { type: "image/svg+xml" });
+        const svgFiles = event.target.files;
 
-    const svgReader = new FileReader(); //fires asyncronisly, meaning that it will independantly run and return, whilst other functions lower down the execution order will fire befor it.
+        const svgBlob = new Blob(svgFiles, { type: "image/svg+xml" });
 
-
-    svgReader.addEventListener("load", (event) => {
-
-
-        var parser = new DOMParser();
-        var doc = parser.parseFromString(svgReader.result, "application/xml");//image/svg+xml
+        const svgReader = new FileReader(); //fires asyncronisly, meaning that it will independantly run and return, whilst other functions lower down the execution order will fire befor it.
 
 
-
-        if (svgReader.result.includes("polygon")) {
-
-            prcsPolygon(doc)
+        svgReader.addEventListener("load", () => {
 
 
-        } else if (svgReader.result.includes("line")) {
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(svgReader.result, "application/xml");//image/svg+xml
 
-            prcsLine(doc)
+            console.log("svgReaderResult: " + svgReader.result)
 
-        } else if (svgReader.result.includes("path")) {
+            if (svgReader.result.includes("polygon")) {
 
-            prcsPath(doc)
-
-            console.log(" type: result" + svgPoints)
-        }
-        console.log("SVG loaded and processed");
+                prcsPolygon(doc)
 
 
+            } else if (svgReader.result.includes("line")) {
 
+                prcsLine(doc)
 
+            } else if (svgReader.result.includes("path")) {
 
-        console.log(svgReader.result)
+                prcsPath(doc)
 
-
-        //includes to check file type
+                console.log("result: " + svgPoints)
+            }
 
 
 
 
-    });
-    svgReader.readAsText(svgBlob);
 
 
 
+
+            // console.log(svgReader.result)
+
+
+            //includes to check file type
+
+
+
+            resolve()
+        });
+        svgReader.readAsText(svgBlob);
+
+
+    })
 
 }
 
@@ -99,9 +103,10 @@ export async function prcsPath(doc) {
         const svgPts = svgPath.getPointAtLength(i * 2)
         svgPoints.push({ x: svgPts.x, y: svgPts.y })
 
-
+        console.log("svgPoints after prcsPath result: " + svgPoints)
 
     }
+    console.log("prcsPath is running")
 }
 
 // get bBox
