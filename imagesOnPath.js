@@ -1,11 +1,6 @@
 
 
 import { imgArray } from "./getImages_25_05_02.js";
-
-const templateShape = document.getElementById("svgShape"),
-    halfLength = templateShape.getTotalLength() / 2,
-    templateShapeMidPoint = templateShape.getPointAtLength(halfLength),
-    fileSelect = document.getElementById("svgFileElem");
 let distance = 10
 
 
@@ -92,13 +87,30 @@ export async function prcsLine(doc) {
 
 
 export async function prcsPath(doc) {
+
+
     let svgPath = doc.querySelector("svg path")
     const totalLenght = svgPath.getTotalLength();
     let numberOfSamples = imgArray.length;
 
+
+
+    document.getElementById("hidden-svg").appendChild(doc.documentElement);
+
+
+
+
     svgPoints.length = 0;
 
     for (let i = 0; i < numberOfSamples; i++) {
+
+        const bbox = svgPath.getBBox()
+
+        console.log("bbox: " + bbox)
+
+        let scaleX = 100 / bbox.width;
+        let scaleY = 100 / bbox.height;
+        console.log("bbox width: " + bbox.width)
 
         const svgPts = svgPath.getPointAtLength(i * 2)
         svgPoints.push({ x: svgPts.x, y: svgPts.y })
