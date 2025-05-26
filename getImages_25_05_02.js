@@ -19,6 +19,11 @@ let gridMarginY = 0;
 export const imgArray = [];
 
 
+// window.onload = () => {
+//     alert("This bitch ass program intends to chalange you. It intends you to say stuff like Fuck this or what the fuck is going on, whyy is it not working. It is my first atemot at creating any kind of 'real' software and a testiment to actual coders who get do do this shit every day. Its pretty fucking hard what they do. and then the software brakes and you, the user, gets mad because you find a stupid way of working with the software that brakes it beacuse fuck the software. be gratfull what code can do for you and bitch even thos it seems easy it is not. so the next time you get mad at a oiece of programming just shut the fuck up and try to do it yourself. ");
+// };
+
+
 ////////////////////////////////////////////–2FileUpload
 
 
