@@ -22,8 +22,34 @@
         </div>
 
         <div class="sliderContainer">
-            <input class="slider" id="sliderW" type="range" min="0" max="10vw" value="2" step=".5">
+            <div>
+                <input class="slider" id="sliderW" type="range" min="0" max="10vw" value="2" step=".5">
+                <h2 id="sliderWvalueRead">2</h2>
+            </div>
+
             <input class="slider" id="sliderX" type="range" min="0" max="10vw" value="2" step=".5">
+
+            <div>
+                <input class="slider" id="scaleBbox" type="range" min="100" max="1000" value="200" step="1">
+                <h2 id="scaleBboxvalueRead">200</h2>
+            </div>
+
+            <script>
+                const sliderWValue = document.getElementById("sliderW")
+                const scaleBbox = document.getElementById("scaleBbox")
+
+                sliderWValue.addEventListener("input", () => {
+                    document.getElementById("sliderWvalueRead").textContent = sliderWValue.value;
+                })
+
+                scaleBbox.addEventListener("input", () => {
+                    document.getElementById("scaleBboxvalueRead").textContent = scaleBbox.value;
+                })
+
+            </script>
+
+
+
         </div>
         <input type="number" name="offset x" id="inputOffX" min="1" max="100">
         <input type="checkbox" name="placeOnPath" id="checkbox1">
@@ -31,7 +57,7 @@
     </div>
     <div class="svgContainer">
         <div id="hidden-svg"></div>
-        <!-- <div id="hidden-svg" style="display:none"></div> -->
+
     </div>
 
 

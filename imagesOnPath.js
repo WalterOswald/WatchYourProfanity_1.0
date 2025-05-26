@@ -88,14 +88,38 @@ export async function prcsLine(doc) {
 
 export async function prcsPath(doc) {
 
+    console.log("doc at start of prcsPath: " + doc)
 
-    let svgPath = doc.querySelector("svg path")
-    const totalLenght = svgPath.getTotalLength();
     let numberOfSamples = imgArray.length;
 
-
-
     document.getElementById("hidden-svg").appendChild(doc.documentElement);
+
+
+    console.log(document.querySelector("svg"));      // should return <svg> element
+    console.log(document.querySelector("svg path")); // check if it’s null
+
+
+    let svgPath = document.querySelector("#hidden-svg path")
+
+
+    const bbox = svgPath.getBBox()
+    console.log("bboxw: " + bbox.width)
+    console.log("bboxH: " + bbox.height)
+
+    const targetWidth = window.innerWidth;
+    const targetHeight = window.innerHeight
+
+
+    const scaleX = bbox.width / targetWidth;
+    const scaleY = bbox.height / targetHeight;
+    const scale = Math.min(scaleX, scaleY);
+
+    const translateX = -bbox.x;
+    const translateY = -bbox.y;
+
+
+    //svgPath.setAttribute("transform", `translate(${translateX}, ${translateY}) scale(${scale})`);
+
 
 
 
@@ -104,21 +128,14 @@ export async function prcsPath(doc) {
 
     for (let i = 0; i < numberOfSamples; i++) {
 
-        const bbox = svgPath.getBBox()
-
-        console.log("bbox: " + bbox)
-
-        let scaleX = 100 / bbox.width;
-        let scaleY = 100 / bbox.height;
-        console.log("bbox width: " + bbox.width)
 
         const svgPts = svgPath.getPointAtLength(i * 2)
-        svgPoints.push({ x: svgPts.x, y: svgPts.y })
+        svgPoints.push({ x: (svgPts.x + translateX) * scale, y: (svgPts.y + translateY) * scale })
 
-        console.log("svgPoints after prcsPath result: " + svgPoints)
+
+
 
     }
-    console.log("prcsPath is running")
 }
 
 // get bBox

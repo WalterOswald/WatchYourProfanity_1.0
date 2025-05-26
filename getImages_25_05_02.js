@@ -293,8 +293,14 @@ class imageObject {
 
 
                         console.log("svgPoints: " + points)
-                        imgObj.x = points.x
-                        imgObj.y = points.y
+                        imgObj.x = points.x / 10
+                        imgObj.y = points.y / 1000
+
+                        //  imgObj.x = imgObj.x * 100
+                        //imgObj.y = imgObj.y
+
+                        console.log(imgObj.x)
+                        console.log(imgObj.y)
 
                         imgObj.setStyle("top", "px", imgObj.x)
                         imgObj.setStyle("left", "px", imgObj.y)
