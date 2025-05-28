@@ -1,10 +1,12 @@
 ////////////////////////////////////////////–1Setup
 import resizeImage from './convertImage.js';
 
-const fileSelect = document.getElementById("fileSelect"),//where you upload files
-    fileElem = document.getElementById("fileElem"),//<input id="fileElem" type="file" multiple />
+import { handleSVG, svgPoints } from './imagesOnPath.js';
+
+const fileElem = document.getElementById("fileElem"),//<input id="fileElem" type="file" multiple />
     preview = document.getElementById("preview"), sliderW = document.getElementById("sliderW"),
-    sliderX = document.getElementById("sliderX");
+    sliderZ = document.getElementById("sliderZ"), placeOnPath = document.getElementById("checkbox1"),
+    svgFileElem = document.getElementById("svgFileElem");
 
 
 
@@ -12,9 +14,14 @@ let sliderWidth, sliderPosX
 
 let imgObjWidth, imgObjHeight, imgObjBorderRadious
 let activeImageObject = null;
-
-
+let gridMarginX = 5;
+let gridMarginY = 0;
 export const imgArray = [];
+
+
+// window.onload = () => {
+//     alert("This bitch ass program intends to chalange you. It intends you to say stuff like Fuck this or what the fuck is going on, whyy is it not working. It is my first atemot at creating any kind of 'real' software and a testiment to actual coders who get do do this shit every day. Its pretty fucking hard what they do. and then the software brakes and you, the user, gets mad because you find a stupid way of working with the software that brakes it beacuse fuck the software. be gratfull what code can do for you and bitch even thos it seems easy it is not. so the next time you get mad at a oiece of programming just shut the fuck up and try to do it yourself. ");
+// };
 
 
 ////////////////////////////////////////////–2FileUpload
@@ -43,6 +50,7 @@ async function handleFiles(event) {
         const imageObj = new imageObject(resizedBase64, dimensions.width, dimensions.height);
 
         imageObj.name = "ImgObj-" + i
+        imageObj.setGridPos(imgArray.length);
         imgArray.push(imageObj);
         imageObj.placeOnPage(preview);
 
@@ -93,10 +101,10 @@ class imageObject {
 
         if (typeof fileOrUrl === "string") {
             this.img.src = fileOrUrl;
-        } else {
+        } else if (typeof fileOrUrl === "img") {
             this.file = fileOrUrl;
             this.img.src = URL.createObjectURL(fileOrUrl);//fileOrUrl //
-            console.log(this.img.src)
+
         }
 
 
@@ -124,30 +132,10 @@ class imageObject {
     focusImage(elm) {
         activeImageObject = this;
         this.isActive = true;
-        console.log("ActiveImageElement", elm);
+
     }
 
 
-    // focusImage() {
-
-    //     if (imgArray.length === 0) {
-    //         console.log("broke out");
-    //         return;
-    //     }
-
-
-    //     for (let i = 0; i < imgArray.length; i++) {
-
-    //         const focusedElem = document.getElementById("IMG-Object" + i)
-
-    //         focusedElem.onclick = () => {
-    //             this.isActive = true;
-    //             console.log(this.isActive.valueOf())
-    //         }
-
-    //     }
-
-    // }
 
     ////////////////////////////////////////////–3.1ImageObject//DragElem
 
@@ -188,7 +176,7 @@ class imageObject {
             const topVH = viewport_convert(newTop, 0, 1)
             const leftVW = viewport_convert(newLeft, 1, 0)
 
-
+            //DEBUG: redo in terms of function setStyle()
             elm.style.top = topVH + "vh"
             elm.style.left = leftVW + "vw"
 
@@ -274,23 +262,85 @@ class imageObject {
 
     }
 
-    setRandomPos() {
-        this.x = getRandomInt(50);
-        this.setStyle("left", "vw", this.x)
+    setGridPos(index) {
+
+        gridMarginX
+        gridMarginY = 0;
+
+        this.x = index * gridMarginX;
+        this.y = gridMarginY;
+
+        this.setStyle("left", "vw", this.x);
+        this.setStyle("top", "vh", this.y);
+
 
     }
 
     placeOnPage(elm) {
 
-        for (let i = 0; i < imgArray.length; i++) {
-            (this.img).id = 'IMG-Object' + i;
 
 
-            this.dragElement(this.img);
-            this.img.onclick = () => this.focusImage(this.img)
-            elm.appendChild(this.img);
-            // console.log(this.name)
+        if (checkbox1.checked) {
+
+            svgFileElem.addEventListener("change", (event) => {
+                handleSVG(event).then(() => {
+                    console.log("svgPoints after handleSVG:", svgPoints);
+
+                    for (let i = 0; i < imgArray.length; i++) {
+
+                        const imgObj = imgArray[i];
+                        const points = svgPoints[i];
+
+
+                        console.log("i: " + i)
+                        console.log("points:" + points)
+                        console.log("pointsX: " + svgPoints[0].x + "pointsY: " + svgPoints[0].y)
+                        imgObj.x = points.x / 2
+                        imgObj.y = points.y / 2
+
+                        //  imgObj.x = imgObj.x * 100
+                        //imgObj.y = imgObj.y
+
+
+
+                        const topVH = this.viewport_convert(imgObj.x, 0, 1)
+                        const leftVW = this.viewport_convert(imgObj.y, 1, 0)
+
+                        imgObj.setStyle("top", "vh", topVH)
+                        imgObj.setStyle("left", "vw", leftVW)
+
+
+                        imgObj.id = 'IMG-Object' + i;
+                        imgObj.dragElement(imgObj.img);
+                        imgObj.img.onclick = () => imgObj.focusImage(imgObj.img)
+                        elm.appendChild(imgObj.img);
+                        //console.log("svgPoints: " + svgPoints[i].x)
+                    }
+
+                });
+            })
+
+            console.log("checked")
+        } else {
+
+            this.setGridPos(elm)
+
+            for (let i = 0; i < imgArray.length; i++) {
+
+
+
+                (this.img).id = 'IMG-Object' + i;
+
+                this.dragElement(this.img);
+                this.img.onclick = () => this.focusImage(this.img)
+                elm.appendChild(this.img);
+                // console.log(this.name)
+            }
+
         }
+
+
+
 
     }
 
@@ -315,16 +365,18 @@ document.getElementById("sliderW").addEventListener("change", function (event) {
 
 });
 
+document.getElementById("sliderZ").addEventListener("change", function (event) {
+    let sliderZval = sliderZ.value;
+    if (!activeImageObject) {
+        console.error("noImageLoaded");
+    } else { activeImageObject.setStyle("z-index", "", sliderZval) }
 
-
-
-
-document.getElementById("sliderX").addEventListener("change", function (event) {
-    this.x = sliderX.value;
-
-    imgArray[0].setStyle("left", "vw", this.x);
 });
 
+document.getElementById("inputOffX").addEventListener("change", (event) => {
+    gridMarginX = inputOffX.value
+
+})
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
