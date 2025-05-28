@@ -5,7 +5,7 @@ import { handleSVG, svgPoints } from './imagesOnPath.js';
 
 const fileElem = document.getElementById("fileElem"),//<input id="fileElem" type="file" multiple />
     preview = document.getElementById("preview"), sliderW = document.getElementById("sliderW"),
-    sliderX = document.getElementById("sliderX"), placeOnPath = document.getElementById("checkbox1"),
+    sliderZ = document.getElementById("sliderZ"), placeOnPath = document.getElementById("checkbox1"),
     svgFileElem = document.getElementById("svgFileElem");
 
 
@@ -58,7 +58,7 @@ async function handleFiles(event) {
 
 
 
-}
+};
 
 
 ////////////////////////////////////////////–2.1//Get image Width/height
@@ -295,17 +295,21 @@ class imageObject {
                         console.log("i: " + i)
                         console.log("points:" + points)
                         console.log("pointsX: " + svgPoints[0].x + "pointsY: " + svgPoints[0].y)
-                        imgObj.x = points.x
-                        imgObj.y = points.y
+                        imgObj.x = points.x / 2
+                        imgObj.y = points.y / 2
 
                         //  imgObj.x = imgObj.x * 100
                         //imgObj.y = imgObj.y
 
-                        console.log(imgObj.x)
-                        console.log(imgObj.y)
 
-                        imgObj.setStyle("top", "px", imgObj.x)
-                        imgObj.setStyle("left", "px", imgObj.y)
+
+                        const topVH = this.viewport_convert(imgObj.x, 0, 1)
+                        const leftVW = this.viewport_convert(imgObj.y, 1, 0)
+
+                        imgObj.setStyle("top", "vh", topVH)
+                        imgObj.setStyle("left", "vw", leftVW)
+
+
                         imgObj.id = 'IMG-Object' + i;
                         imgObj.dragElement(imgObj.img);
                         imgObj.img.onclick = () => imgObj.focusImage(imgObj.img)
@@ -361,19 +365,18 @@ document.getElementById("sliderW").addEventListener("change", function (event) {
 
 });
 
+document.getElementById("sliderZ").addEventListener("change", function (event) {
+    let sliderZval = sliderZ.value;
+    if (!activeImageObject) {
+        console.error("noImageLoaded");
+    } else { activeImageObject.setStyle("z-index", "", sliderZval) }
+
+});
+
 document.getElementById("inputOffX").addEventListener("change", (event) => {
     gridMarginX = inputOffX.value
 
 })
-
-
-
-document.getElementById("sliderX").addEventListener("change", function (event) {
-    this.x = sliderX.value;
-
-    imgArray[0].setStyle("left", "vw", this.x);
-});
-
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);

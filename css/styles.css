@@ -1,102 +1,120 @@
 img {
   width: 5vw;
-  left: 175 vw;
   z-index: 0;
 }
 
-.fileElem {
-  all: unset;
-  appearance: none;
-  width: 200px;
-  height: 200px;
-  color: black;
-  border-style: none;
-  border-radius: 50%;
+.UIOuter {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  height: auto;
+  width: min-content;
+  background-color: rgb(232, 232, 232);
+  border-top-left-radius: 20px;
+}
+
+.btnWrapper {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 25pt;
-  text-align: center;
-  line-height: 80%;
-  align-self: center;
+  font-size: 1.2em;
+  letter-spacing: 0.04em;
 }
 
 .btn {
   appearance: none;
   display: block;
-  left: 20px;
-  width: 5vw;
-  height: 5vw;
-  color: black;
+  width: max-content;
+  height: min-content;
+  padding: 2.45vw;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 0.5vh;
+  border-color: rgb(255, 255, 255);
+  border-style: solid;
+}
+
+.btnWrapper :hover {
+  background-color: rgb(242, 242, 242);
+}
+
+.btnOuterWrapper {
+  display: flex;
+  width: 10vw;
+}
+
+.btn #export {
+  width: 15vw;
   border-style: none;
-  border-radius: 50%;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 45pt;
-  text-align: center;
-  line-height: 80%;
-  background-color: rgb(255, 50, 0);
-  align-self: center;
+  fill: white;
 }
 
 #checkbox1 {
+  display: block;
+  height: 5vw;
   width: 5vw;
 }
 
-#svgFileElem {
-  background-color: greenyellow;
-}
-
-#UI {
-  position: absolute;
-  height: 10vw;
-  display: flex;
-  z-index: 9;
-  background-color: #f1f1f1;
-  border: 1px solid #d3d3d3;
-  text-align: center;
-  align-content: center;
-  border-top-right-radius: 200px;
-  border-bottom-right-radius: 200px;
+#hidden-svg {
+  background-color: rgb(242, 242, 242);
+  visibility: hidden;
 }
 
 .preview {
   z-index: 0;
 }
 
-#UIheader {
-  font-family: sans-serif;
-  padding: 10px;
-  margin-right: 10px;
+.grabArea {
+  display: block;
+  width: 13vw;
+  height: 1vh;
   cursor: move;
-  z-index: 10;
-  background-color: #000;
+  background-color: #000000;
+  border-top-left-radius: 18px;
+}
+
+input[type=file] {
+  display: none;
+}
+
+input[type=submit] {
+  display: none;
+}
+
+.DisplayNumbers {
+  font-family: sans-serif;
+  font-style: black;
+  font-size: 1vw;
+  text-align: center;
+  width: 13vw;
+  background-color: white;
 }
 
 .sliderContainer {
   display: block;
   background-color: rgb(244, 244, 244);
+  width: 13vw;
+  padding-bottom: 1.5vh;
 }
 
 input[type=range] {
-  width: 300px;
-  height: 30px;
-  margin: 10px;
+  width: 13vw;
+  height: 7.5vh;
   appearance: none;
-  background: hotpink;
+  background: rgb(255, 255, 255);
 }
 
 input[type=range]::-webkit-slider-runnable-track {
-  height: 8px;
-  background: rgb(255, 0, 0);
-  border-radius: 0px;
+  height: 6vh;
+  background: rgb(197, 197, 197);
 }
 
 input[type=range]::-webkit-slider-thumb {
   appearance: none;
-  width: 50px;
-  height: 50px;
-  background: greenyellow;
-  border-radius: 100%;
+  width: 3vh;
+  height: 6vh;
+  background: rgb(0, 0, 0);
+  border-top-left-radius: 18px;
   cursor: pointer;
-  margin-top: -20px;
   /* align with track */
 }
 
@@ -107,8 +125,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 #inputOffX {
-  width: 5vw;
-  width: fit-content;
+  width: 12.85vw;
   font-size: 5vw;
   text-align: center;
   border-style: none;

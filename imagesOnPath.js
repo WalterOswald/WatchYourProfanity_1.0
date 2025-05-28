@@ -77,7 +77,8 @@ export async function prcsPath(doc) {
 
     let numberOfSamples = imgArray.length;
     var bbox
-    var svgPath
+    var svgPaths
+
     const hiddenSvg = document.getElementById("hidden-svg");
     hiddenSvg.innerHTML = "";
 
@@ -92,46 +93,53 @@ export async function prcsPath(doc) {
 
     await new Promise((resolve) => {
         requestAnimationFrame(() => {
-            svgPath = document.querySelector("#hidden-svg path")
-            bbox = svgPath.getBBox()
+            svgPaths = document.querySelectorAll("#hidden-svg path")
+
+            svgPaths.forEach((svgPath) => {
+                bbox = svgPath.getBBox()
+
+                const targetWidth = window.innerWidth;
+                const targetHeight = window.innerHeight
+
+                const scaleX = bbox.width / targetWidth;
+                const scaleY = bbox.height / targetHeight;
+                const scale = Math.min(scaleX, scaleY);
+
+                const translateX = 0 - bbox.x;
+                const translateY = 0 - bbox.y;
 
 
+                svgPath.setAttribute("transform", `translate(${translateX}, ${translateY}) scale(${scale})`);
 
-            console.log("bboxAfterLayout: " + bbox)
-            console.log("bboxw: " + bbox.width)
-            console.log("bboxH: " + bbox.height)
 
-            svgPoints.length = 0;
-            const totalLength = svgPath.getTotalLength();
-            for (let i = 0; i < numberOfSamples; i++) {
-                const distance = (i / (numberOfSamples - 1)) * totalLength
-                const svgPts = svgPath.getPointAtLength(distance)
-                svgPoints.push({ x: svgPts.x, y: svgPts.y })
-            }
+                svgPoints.length = 0;
+                const totalLength = svgPath.getTotalLength();
+                for (let i = 0; i < numberOfSamples; i++) {
 
-            resolve();
+                    const distance = (i / (numberOfSamples - 1)) * totalLength
+                    const svgPts = svgPath.getPointAtLength(distance)
+                    svgPoints.push({ x: svgPts.x, y: svgPts.y })
+                }
+
+                resolve();
+
+            });
 
         });
-
-    });
-
-
-    // const targetWidth = window.innerWidth;
-    // const targetHeight = window.innerHeight
+    })
 
 
-    // const scaleX = bbox.width / targetWidth;
-    // const scaleY = bbox.height / targetHeight;
-    // const scale = Math.min(scaleX, scaleY);
-
-    // const translateX = -bbox.x;
-    // const translateY = -bbox.y;
 
 
-    //svgPath.setAttribute("transform", `translate(${translateX}, ${translateY}) scale(${scale})`);
+
+
 
 
 
 }
 
 // get bBox
+
+// document.addEventListener('mousemove', function (event) {
+//     console.log('Mouse X:', event.clientX, 'Mouse Y:', event.clientY);
+// });

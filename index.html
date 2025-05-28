@@ -12,48 +12,73 @@
 <body>
 
 
-    <div id="UI">
-        <div id="UIheader"></div>
-        <div>
-            <h3>Upload image</h3><input class="btn" id="fileElem" type="file" multiple hidden />
+    <div id="UI" class="UIOuter">
+
+
+        <div id="UIheader">
+            <div class="grabArea"></div>
         </div>
-        <div>
-            <h3>Upload svg</h3><input class="btn" id="svgFileElem" type="file" multiple hidden />
+        <div class="btnOuterWrapper">
+
+            <div class="btnWrapper">
+                <label for="fileElem" class="btn">
+                    <h3>+IMG</h3><input id="fileElem" type="file" multiple hidden />
+                </label>
+            </div>
+            <div class="btnWrapper">
+                <label for="fileElem" class="btn">
+                    <h3>+SVG</h3><input id="svgFileElem" type="file" multiple hidden />
+                </label>
+            </div>
         </div>
+
 
         <div class="sliderContainer">
             <div>
+                <p class="DisplayNumbers">SCL</p>
                 <input class="slider" id="sliderW" type="range" min="0" max="10vw" value="2" step=".5">
-                <h2 id="sliderWvalueRead">2</h2>
+                <p class="DisplayNumbers" id="sliderWvalueRead">2</p>
             </div>
-
-            <input class="slider" id="sliderX" type="range" min="0" max="10vw" value="2" step=".5">
-
             <div>
-                <input class="slider" id="scaleBbox" type="range" min="100" max="1000" value="200" step="1">
-                <h2 id="scaleBboxvalueRead">200</h2>
+                <p class="DisplayNumbers">Z-POS↴</p>
+                <input class="slider" id="sliderZ" type="range" min="0" max="100" value="0" step="1">
+                <p class="DisplayNumbers" id="scaleZvaluevalueRead">0</p>
             </div>
+            <!--  -->
 
             <script>
                 const sliderWValue = document.getElementById("sliderW")
+                const sliderZValue = document.getElementById("sliderZ")
                 const scaleBbox = document.getElementById("scaleBbox")
 
                 sliderWValue.addEventListener("input", () => {
                     document.getElementById("sliderWvalueRead").textContent = sliderWValue.value;
                 })
 
-                scaleBbox.addEventListener("input", () => {
-                    document.getElementById("scaleBboxvalueRead").textContent = scaleBbox.value;
+                sliderZValue.addEventListener("input", () => {
+                    document.getElementById("scaleZvaluevalueRead").textContent = sliderZValue.value;
                 })
+
+
 
             </script>
 
-
-
         </div>
+
+
+
         <input type="number" name="offset x" id="inputOffX" min="1" max="100">
         <input type="checkbox" name="placeOnPath" id="checkbox1">
-        <button onclick="download_file( 'Test.html' , dynamic_text())" , id="export" class="btn"></button>
+
+        <div class="btnOuterWrapper">
+            <div class="btnWrapper">
+                <label for="export" class="btn" id="export">
+                    <h3>+EXPORT</h3> <input onclick="download_file( 'Test.html' , dynamic_text())" , id="export"
+                        class="btn" type="submit" />
+                </label>
+            </div>
+        </div>
+
     </div>
 
 
@@ -61,7 +86,7 @@
 
 
 
-    <a href="#" id="fileSelect"></a>
+    <a href=" #" id="fileSelect"></a>
 
     <div id="hidden-svg"></div>
     <div class="preview" id="preview"></div>
