@@ -58,7 +58,7 @@ async function handleFiles(event) {
 
 
 
-};
+}
 
 
 ////////////////////////////////////////////–2.1//Get image Width/height
