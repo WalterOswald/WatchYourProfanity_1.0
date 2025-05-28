@@ -284,17 +284,19 @@ class imageObject {
 
             svgFileElem.addEventListener("change", (event) => {
                 handleSVG(event).then(() => {
+                    console.log("svgPoints after handleSVG:", svgPoints);
 
                     for (let i = 0; i < imgArray.length; i++) {
-
 
                         const imgObj = imgArray[i];
                         const points = svgPoints[i];
 
 
-                        console.log("svgPoints: " + points)
-                        imgObj.x = points.x / 10
-                        imgObj.y = points.y / 1000
+                        console.log("i: " + i)
+                        console.log("points:" + points)
+                        console.log("pointsX: " + svgPoints[0].x + "pointsY: " + svgPoints[0].y)
+                        imgObj.x = points.x
+                        imgObj.y = points.y
 
                         //  imgObj.x = imgObj.x * 100
                         //imgObj.y = imgObj.y

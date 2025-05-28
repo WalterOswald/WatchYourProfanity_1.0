@@ -24,7 +24,7 @@ export async function handleSVG(event) {
         const svgReader = new FileReader(); //fires asyncronisly, meaning that it will independantly run and return, whilst other functions lower down the execution order will fire befor it.
 
 
-        svgReader.addEventListener("load", () => {
+        svgReader.addEventListener("load", async () => {
 
 
             var parser = new DOMParser();
@@ -43,32 +43,17 @@ export async function handleSVG(event) {
 
             } else if (svgReader.result.includes("path")) {
 
-                prcsPath(doc)
+                await prcsPath(doc);
 
                 console.log("result: " + svgPoints)
             }
-
-
-
-
-
-
-
-
-            // console.log(svgReader.result)
-
-
-            //includes to check file type
-
-
-
             resolve()
         });
         svgReader.readAsText(svgBlob);
 
 
-    })
 
+    })
 }
 
 export async function prcsPolygon(doc) {
@@ -91,51 +76,62 @@ export async function prcsPath(doc) {
     console.log("doc at start of prcsPath: " + doc)
 
     let numberOfSamples = imgArray.length;
-
-    document.getElementById("hidden-svg").appendChild(doc.documentElement);
-
-
-    console.log(document.querySelector("svg"));      // should return <svg> element
-    console.log(document.querySelector("svg path")); // check if it’s null
+    var bbox
+    var svgPath
+    const hiddenSvg = document.getElementById("hidden-svg");
+    hiddenSvg.innerHTML = "";
 
 
-    let svgPath = document.querySelector("#hidden-svg path")
+    hiddenSvg.appendChild(doc.documentElement);
 
 
-    const bbox = svgPath.getBBox()
-    console.log("bboxw: " + bbox.width)
-    console.log("bboxH: " + bbox.height)
 
-    const targetWidth = window.innerWidth;
-    const targetHeight = window.innerHeight
+    console.log(document.querySelector("svg"));
+    console.log(document.querySelector("svg path"));
 
 
-    const scaleX = bbox.width / targetWidth;
-    const scaleY = bbox.height / targetHeight;
-    const scale = Math.min(scaleX, scaleY);
+    await new Promise((resolve) => {
+        requestAnimationFrame(() => {
+            svgPath = document.querySelector("#hidden-svg path")
+            bbox = svgPath.getBBox()
 
-    const translateX = -bbox.x;
-    const translateY = -bbox.y;
+
+
+            console.log("bboxAfterLayout: " + bbox)
+            console.log("bboxw: " + bbox.width)
+            console.log("bboxH: " + bbox.height)
+
+            svgPoints.length = 0;
+            const totalLength = svgPath.getTotalLength();
+            for (let i = 0; i < numberOfSamples; i++) {
+                const distance = (i / (numberOfSamples - 1)) * totalLength
+                const svgPts = svgPath.getPointAtLength(distance)
+                svgPoints.push({ x: svgPts.x, y: svgPts.y })
+            }
+
+            resolve();
+
+        });
+
+    });
+
+
+    // const targetWidth = window.innerWidth;
+    // const targetHeight = window.innerHeight
+
+
+    // const scaleX = bbox.width / targetWidth;
+    // const scaleY = bbox.height / targetHeight;
+    // const scale = Math.min(scaleX, scaleY);
+
+    // const translateX = -bbox.x;
+    // const translateY = -bbox.y;
 
 
     //svgPath.setAttribute("transform", `translate(${translateX}, ${translateY}) scale(${scale})`);
 
 
 
-
-
-    svgPoints.length = 0;
-
-    for (let i = 0; i < numberOfSamples; i++) {
-
-
-        const svgPts = svgPath.getPointAtLength(i * 2)
-        svgPoints.push({ x: (svgPts.x + translateX) * scale, y: (svgPts.y + translateY) * scale })
-
-
-
-
-    }
 }
 
 // get bBox
