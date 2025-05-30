@@ -36,7 +36,7 @@ img {
     width: max-content;
     height: min-content;
 
-    padding: 2.45vw;
+    padding: 1.2vw;
     border-top: 0px;
     border-left: 0px;
     border-right: 0px;
@@ -97,9 +97,40 @@ img {
     cursor: move;
 
     background-color: #000000;
-    border-top-left-radius: 18px;
+
 
 }
+
+
+.form-control {
+    width: 4vw;
+
+    font-family: system-ui, sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 1.1;
+
+    display: grid;
+    grid-template-columns: 1em auto;
+    gap: 0.5em;
+
+
+    background-color: white;
+
+    border-style: solid;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+
+    border-bottom: 1vw;
+    border-color: rgb(255, 255, 255);
+
+
+}
+
+
+
+
 
 
 
@@ -158,10 +189,10 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 input[type="range"]::-webkit-slider-thumb {
     appearance: none;
-    width: 3vh;
+    width: .8vw;
     height: 6vh;
     background: rgb(0, 0, 0);
-    border-top-left-radius: 18px;
+
 
     cursor: pointer;
 

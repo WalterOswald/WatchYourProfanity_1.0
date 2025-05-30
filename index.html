@@ -37,7 +37,7 @@
 
         <div class="sliderContainer">
             <div>
-                <p class="DisplayNumbers">SCL</p>
+                <p class="DisplayNumbers">SCL↴</p>
                 <input class="slider" id="sliderW" type="range" min="0" max="10vw" value="2" step=".5">
                 <p class="DisplayNumbers" id="sliderWvalueRead">2</p>
             </div>
@@ -70,11 +70,14 @@
 
 
         <input type="number" name="offset x" id="inputOffX" min="1" max="100">
+
         <input type="checkbox" name="placeOnPath" id="checkbox1">
+
+
 
         <div class="btnOuterWrapper">
             <div class="btnWrapper">
-                <label for="export" class="btn" id="export">
+                <label for="export" class="btn">
                     <h3>+EXPORT</h3> <input onclick="download_file( 'Test.html' , dynamic_text())" , id="export"
                         class="btn" type="submit" />
                 </label>

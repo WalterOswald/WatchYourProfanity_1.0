@@ -382,7 +382,14 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-
+for (let i = 0; i < imgArray.length; i++) {
+    if (!activeImageObject) {
+        console.error("noImageLoaded");
+    } else {
+        activeImageObject.setStyle("border", "px", 2);
+        activeImageObject.setStyle("border", "px", 2)
+    }
+}
 
 
 
