@@ -75,7 +75,7 @@ export async function prcsPath(doc) {
 
     console.log("doc at start of prcsPath: " + doc)
 
-    let numberOfSamples = imgArray.length;
+    let numberOfSamples = 1000; //imgArray.length;
     var bbox
     var svgPaths
 
