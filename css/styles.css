@@ -10,6 +10,7 @@ img {
   height: auto;
   width: min-content;
   background-color: rgb(232, 232, 232);
+  z-index: 320;
   border-top-left-radius: 20px;
 }
 
@@ -56,7 +57,6 @@ img {
 
 #hidden-svg {
   background-color: rgb(242, 242, 242);
-  visibility: hidden;
 }
 
 .preview {

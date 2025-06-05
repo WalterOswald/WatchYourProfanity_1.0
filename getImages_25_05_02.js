@@ -16,7 +16,8 @@ let imgObjWidth, imgObjHeight, imgObjBorderRadious
 let activeImageObject = null;
 let inActiveImageObject = null;
 let gridMarginX = 5;
-let gridMarginY = 0;
+let gridMarginY
+let ProcessNumber = 0
 export const imgArray = [];
 
 
@@ -120,6 +121,7 @@ class imageObject {
         // this.img.style.borderRadius = ImgborderRadius
         this.img.style.position = "absolute"
         this.img.style.width = "5vw"
+        this.img.style.height = "auto"
         this.isActive = false
 
 
@@ -281,15 +283,47 @@ class imageObject {
     }
 
     setGridPos(index) {
-        // index = 0
+
         gridMarginX
-        gridMarginY = 0;
+        gridMarginY
 
-        this.x = index * gridMarginX;
-        this.y = gridMarginY;
 
-        this.setStyle("left", "vw", this.x);
-        this.setStyle("top", "vh", this.y);
+
+        if ((index) * gridMarginX < 100) {
+
+            this.x = index * gridMarginX;
+            this.y = gridMarginY;
+
+            this.setStyle("left", "vw", this.x);
+            this.setStyle("top", "vh", this.y);
+            console.log("under 20")
+
+        } else if ((index + 1) * gridMarginX > 100) {
+
+
+
+            gridMarginY = 20
+            index = index - (20 * ProcessNumber);
+            let j = (index + 1) * gridMarginX
+
+            if (j > 100) {
+
+                ProcessNumber++
+                index = index - (20 * ProcessNumber);
+            }
+
+
+            this.x = index * gridMarginX;
+            this.y = gridMarginY;
+
+            this.setStyle("left", "vw", this.x);
+            this.setStyle("top", "vh", this.y);
+            console.log("over 20")
+            gridMarginY = gridMarginY * ProcessNumber
+
+
+        }
+
 
 
     }
@@ -313,19 +347,22 @@ class imageObject {
                         console.log("i: " + i)
                         console.log("points:" + points)
                         console.log("pointsX: " + svgPoints[0].x + "pointsY: " + svgPoints[0].y)
-                        imgObj.x = points.x / 2
-                        imgObj.y = points.y / 2
+                        imgObj.x = points.x
+                        imgObj.y = points.y
 
                         //  imgObj.x = imgObj.x * 100
                         //imgObj.y = imgObj.y
 
 
 
-                        const topVH = this.viewport_convert(imgObj.x, 0, 1)
-                        const leftVW = this.viewport_convert(imgObj.y, 1, 0)
+                        const topVH = this.viewport_convert(imgObj.y, 0, 1)
+                        const leftVW = this.viewport_convert(imgObj.x, 1, 0)
 
                         imgObj.setStyle("top", "vh", topVH)
                         imgObj.setStyle("left", "vw", leftVW)
+
+                        // imgObj.setStyle("top", "px", imgObj.y)
+                        // imgObj.setStyle("left", "px", imgObj.x)
 
 
                         imgObj.id = 'IMG-Object' + i;

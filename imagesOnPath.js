@@ -87,8 +87,8 @@ export async function prcsPath(doc) {
 
 
 
-    console.log(document.querySelector("svg"));
-    console.log(document.querySelector("svg path"));
+    // console.log(document.querySelector("svg"));
+    // console.log(document.querySelector("svg path"));
 
 
     await new Promise((resolve) => {
@@ -99,10 +99,10 @@ export async function prcsPath(doc) {
                 bbox = svgPath.getBBox()
 
                 const targetWidth = window.innerWidth;
-                const targetHeight = window.innerHeight
+                const targetHeight = window.innerHeight;
 
-                const scaleX = bbox.width / targetWidth;
-                const scaleY = bbox.height / targetHeight;
+                const scaleX = targetWidth / bbox.width;
+                const scaleY = targetHeight / bbox.height;
                 const scale = Math.min(scaleX, scaleY);
 
                 const translateX = 0 - bbox.x;
@@ -114,11 +114,17 @@ export async function prcsPath(doc) {
 
                 svgPoints.length = 0;
                 const totalLength = svgPath.getTotalLength();
+
+                console.log(svgPath)
                 for (let i = 0; i < numberOfSamples; i++) {
 
-                    const distance = (i / (numberOfSamples - 1)) * totalLength
+                    const distance = (i / (numberOfSamples)) * totalLength
+                    console.log([i, distance])
+
                     const svgPts = svgPath.getPointAtLength(distance)
-                    svgPoints.push({ x: svgPts.x, y: svgPts.y })
+
+                    svgPoints.push({ x: svgPts.x * scale, y: svgPts.y * scale })
+                    // document.body.innerHTML += `<div style = "position: absolute; left : ${svgPts.x * scale} top : ${svgPts.y * scale}; width: 20px; height:20px; background: black;"></div>`
                 }
 
                 resolve();
