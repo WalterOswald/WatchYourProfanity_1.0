@@ -14,6 +14,7 @@ let sliderWidth, sliderPosX
 
 let imgObjWidth, imgObjHeight, imgObjBorderRadious
 let activeImageObject = null;
+let inActiveImageObject = null;
 let gridMarginX = 5;
 let gridMarginY = 0;
 export const imgArray = [];
@@ -132,6 +133,23 @@ class imageObject {
     focusImage(elm) {
         activeImageObject = this;
         this.isActive = true;
+        if (this.isActive) {
+            this.setStyle("border", "px", 10)
+            this.setStyle("border-style", "", "solid")
+        }
+
+    }
+
+    unFocusImage(elm) {
+        // inActiveImageObject = this;
+        // this.isInActive = true
+
+        this.setStyle("border", "px", 0)
+        this.setStyle("border-style", "", "none")
+        console.log("duble click")
+
+
+
 
     }
 
@@ -263,7 +281,7 @@ class imageObject {
     }
 
     setGridPos(index) {
-
+        // index = 0
         gridMarginX
         gridMarginY = 0;
 
@@ -313,6 +331,7 @@ class imageObject {
                         imgObj.id = 'IMG-Object' + i;
                         imgObj.dragElement(imgObj.img);
                         imgObj.img.onclick = () => imgObj.focusImage(imgObj.img)
+                        imgObj.img.onmouseleave = () => imgObj.unFocusImage(imgObj.img)
                         elm.appendChild(imgObj.img);
                         //console.log("svgPoints: " + svgPoints[i].x)
                     }
@@ -333,6 +352,7 @@ class imageObject {
 
                 this.dragElement(this.img);
                 this.img.onclick = () => this.focusImage(this.img)
+                this.img.onmouseleave = () => this.unFocusImage(this.img)
                 elm.appendChild(this.img);
                 // console.log(this.name)
             }
