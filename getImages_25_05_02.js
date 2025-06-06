@@ -16,7 +16,7 @@ let imgObjWidth, imgObjHeight, imgObjBorderRadious
 let activeImageObject = null;
 let inActiveImageObject = null;
 let gridMarginX = 5;
-let gridMarginY
+let gridMarginY = 20
 let ProcessNumber = 0
 export const imgArray = [];
 
@@ -280,45 +280,16 @@ class imageObject {
 
         gridMarginX
         gridMarginY
+        const itemsPerRow = Math.floor(100 / gridMarginX);
 
 
+        const row = Math.floor(index / itemsPerRow);
+        const col = index % itemsPerRow;
 
-        if ((index) * gridMarginX < 100) {
-
-            this.x = index * gridMarginX;
-            this.y = gridMarginY;
-
-            this.setStyle("left", "vw", this.x);
-            this.setStyle("top", "vh", this.y);
-
-
-        } else if ((index + 1) * gridMarginX > 100) {
-
-
-
-            gridMarginY = 20
-            index = index - (20 * ProcessNumber);
-            let j = (index + 1) * gridMarginX
-
-            if (j > 100) {
-
-                ProcessNumber++
-                index = index - (20 * ProcessNumber);
-            }
-
-
-            this.x = index * gridMarginX;
-            this.y = gridMarginY;
-
-            this.setStyle("left", "vw", this.x);
-            this.setStyle("top", "vh", this.y);
-
-            gridMarginY = gridMarginY * ProcessNumber
-
-
-        }
-
-
+        this.y = row * gridMarginY
+        this.x = col * gridMarginX
+        this.setStyle("left", "vw", this.x);
+        this.setStyle("top", "vh", this.y);
 
     }
 
@@ -331,26 +302,10 @@ class imageObject {
             this.img.onclick = () => this.focusImage(this.img)
             this.img.onmouseleave = () => this.unFocusImage(this.img)
             elm.appendChild(this.img);
-            // console.log(this.name)
+
         }
 
-
-
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }
 
@@ -393,9 +348,7 @@ function placeImagesOnPath() {
 
     let imagesInHtmlFile = document.getElementById("preview").querySelectorAll("img")
     imagesInHtmlFile.forEach((img) => {
-        console.log("query selector works")
         for (let i = 0; i < imgArray.length; i++) {
-
 
             imgArray[i].setStyle("top", "vh", 0);
 
@@ -403,16 +356,15 @@ function placeImagesOnPath() {
             const points = svgPoints[i];
 
 
-
             imgObj.x = points.x
             imgObj.y = points.y
 
 
-            imgObj.setStyle("top", "px", imgObj.x)
-            imgObj.setStyle("left", "px", imgObj.y)
+            const topVH = imgObj.viewport_convert(imgObj.y, 0, 1)
+            const leftVW = imgObj.viewport_convert(imgObj.x, 1, 0)
 
-
-
+            imgObj.setStyle("top", "vh", topVH)
+            imgObj.setStyle("left", "vw", leftVW)
 
         }
     }

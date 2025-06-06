@@ -25,9 +25,9 @@ img {
 
 .btn {
     appearance: none;
-    font-size: 0.8vw;
-    letter-spacing: 0.04vw;
-    font-weight: normal;
+    font-size: .8vw;
+
+
     font-family: Arial, Helvetica, sans-serif;
 
     display: flex;
@@ -38,12 +38,18 @@ img {
     height: auto;
     padding-left: 1.2vw;
     padding-right: .6vw;
-
-    box-shadow: 0px 2px 4px 0.01px rgb(167, 167, 167);
+    border-bottom: 1vw;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-style: solid;
+    border-color: white;
+    margin-left: 2px;
+    box-shadow: 0px 2px 3px 0.01px rgb(167, 167, 167);
     cursor: pointer;
     text-align: center;
-    margin: 2px;
-    border: none;
+
+
 }
 
 button {
@@ -88,8 +94,10 @@ button {
 
 #hidden-svg {
     background-color: rgb(242, 242, 242);
-    visibility: hidden;
+    // visibility: hidden;
     position: absolute;
+    left: 50vw;
+    top: 50vh;
 }
 
 
@@ -115,7 +123,9 @@ button {
 
 
 
-
+h3 {
+    font-weight: normal;
+}
 
 
 
@@ -169,7 +179,7 @@ input[type="range"] {
 
 input[type="range"]::-webkit-slider-runnable-track {
     height: 6vh;
-    background: rgb(197, 197, 197);
+    background: rgb(215, 215, 215);
     box-shadow: 0px 2px 4px 0.2px rgb(141, 141, 141);
 
 
@@ -179,7 +189,7 @@ input[type="range"]::-webkit-slider-thumb {
     appearance: none;
     width: .8vw;
     height: 6vh;
-    background-color: #212121;
+    background-color: #000000;
 
 
 

@@ -1,88 +1,8 @@
 
-
-import { imgArray } from "./getImages_25_05_02.js";
 let distance = 10
 
 
 export const svgPoints = [];
-
-
-
-
-
-
-
-//////////////////////////////////////////////////////////ORIGIN
-// export async function handleSVG(event) {
-
-//     return new Promise((resolve) => {
-
-//         const svgFiles = event.target.files;
-
-//         const svgBlob = new Blob(svgFiles, { type: "image/svg+xml" });
-
-//         const svgReader = new FileReader(); //fires asyncronisly, meaning that it will independantly run and return, whilst other functions lower down the execution order will fire befor it.
-
-//         console.log(svgReader.result)
-//         svgReader.addEventListener("load", async () => {
-
-
-//             var parser = new DOMParser();
-//             var doc = parser.parseFromString(svgReader.result, "application/xml");//image/svg+xml
-
-//             ////////////////////////////////////////////////////////////WIP
-//             const svgReaderResult = await svgReader
-//             var converted = svgReaderResult
-//             function convertString1(svgReaderResult) {
-
-
-//                 console.log(svgReaderResult)
-//                     // close path for polygon
-//                     .replace(/(<polygon[\w\W]+?)points=(["'])([\.\d- ]+?)(["'])/g, "$1d=$2M$3z$4")
-//                     // dont close path for polyline
-//                     .replace(/(<polyline[\w\W]+?)points=(["'])([\.\d-, ]+?)(["'])/g, "$1d=$2M$3$4")
-//                     .replace(/poly(gon|line)/g, "path")
-//                     ;
-//                 return converted;
-//             }
-
-
-
-
-
-
-//             if (svgReader.result.includes("polygon")) {
-//                 console.log("polygon")
-//                 var result = convertString1(svgReader.result)
-//                 await prcsPath(result).then(() => { console.log("polygon Sucsessfuly processed and converted to path points") })
-
-
-
-//             } else if (svgReader.result.includes("line")) {
-
-//                 prcsLine(doc)
-
-//             } else if (svgReader.result.includes("path")) {
-
-//                 await prcsPath(doc);
-
-
-//             }
-
-//             resolve()
-//         });
-//         svgReader.readAsText(svgBlob);
-
-
-
-//     })
-
-
-
-// }
-
-
-
 
 //////////////////////////////////////////////////////////WORK_PIECE
 export async function handleSVG(event) {
@@ -200,8 +120,8 @@ export async function prcsPath(doc) {
                 const scaleY = targetHeight / bbox.height;
                 const scale = Math.min(scaleX, scaleY);
 
-                const translateX = 0 - bbox.x;
-                const translateY = 0 - bbox.y;
+                const translateX = 0 / bbox.x;
+                const translateY = 0 / bbox.y;
 
 
                 svgPath.setAttribute("transform", `translate(${translateX}, ${translateY}) scale(${scale})`);
