@@ -32,6 +32,46 @@
                 </label>
 
             </div>
+
+
+            <div class="dropdown">
+
+                <button onclick="myFunction()" class="dropbtn btn" id="dropbtn">
+                    <h3>ABOUT</h3>
+                </button>
+
+                <div id="myDropdown" class="dropdown-content ">
+                    <h1>Whatch your Profanity</h1>
+                    <a>This piece of software was designed as a simple image layout tool for websites.
+                        <br><br>
+                        The inspiration behind this project was a frustrating experience trying to create free-form
+                        image layouts using the Cargo site builder.
+                        The title is derived from the fact that I personally swear a lot when working with software —
+                        especially when it doesn’t work as I expect. Ironically, this software may make you swear a lot
+                        if you seriously try to use it.
+                        There are many bugs and a lot of jank. Full disclosure: I am not a software engineer.<br><br>
+                        My personal belief is that any piece of software should aim to restrict its functionality to a
+                        small number of core tasks.
+                        Overly complex toolboxes often serve to create predefined workflows, which might be beneficial
+                        for efficiency,
+                        but ultimately kill creative problem-solving.
+                        <div class="Info">WYP Sports a limited yet
+                            potent collection of features: <br>
+                            1. Freely position your Images with drag and drop. <br>
+                            2. Controll Size and Z-index of your images. <br>
+                            3. SVG Distribution of Images: <br><br>
+                            To palce Images along a path, first you: <br><br>1. Upload SVG <h4>+SVG</h4>
+                            2. Press <h4>ON SVG</h4> <br>
+                            3. <h4>EXPORT</h4>
+
+                        </div>
+                        <br><br>
+                    </a>
+
+                </div>
+            </div>
+
+
         </div>
 
 
@@ -46,12 +86,17 @@
                 <input class="slider" id="sliderZ" type="range" min="0" max="100" value="0" step="1">
                 <p class="DisplayNumbers" id="scaleZvaluevalueRead">0</p>
             </div>
-            <!--  -->
+            <div>
+                <p class="DisplayNumbers">SVG-PTS↴</p>
+                <input class="slider" id="NumberOfPtsOnPth" type="range" min="0" max="300" value="100" step="1">
+                <p class="DisplayNumbers" id="NumberOfPtsOnPthRead">100</p>
+            </div>
+
 
             <script>
                 const sliderWValue = document.getElementById("sliderW")
                 const sliderZValue = document.getElementById("sliderZ")
-                const scaleBbox = document.getElementById("scaleBbox")
+                const sliderNrSvgPtsValue = document.getElementById("NumberOfPtsOnPth")
 
                 sliderWValue.addEventListener("input", () => {
                     document.getElementById("sliderWvalueRead").textContent = sliderWValue.value;
@@ -61,6 +106,9 @@
                     document.getElementById("scaleZvaluevalueRead").textContent = sliderZValue.value;
                 })
 
+                sliderNrSvgPtsValue.addEventListener("input", () => {
+                    document.getElementById("NumberOfPtsOnPthRead").textContent = sliderNrSvgPtsValue.value;
+                })
 
 
             </script>
@@ -69,11 +117,18 @@
 
 
 
-        <input type="number" name="offset x" id="inputOffX" min="1" max="100">
-
-        <input type="checkbox" name="placeOnPath" id="checkbox1">
 
 
+        <!-- <input type="checkbox" name="placeOnPath" id="checkbox1"> -->
+
+
+        <div class="btnOuterWrapper">
+            <div class="btnWrapper">
+                <label for="placeOnPath" class="btn">
+                    <h3>ON SVG</h3> <input onclick="placeImagesOnPath()" id="placeOnPath" class="btn" type="submit" />
+                </label>
+            </div>
+        </div>
 
         <div class="btnOuterWrapper">
             <div class="btnWrapper">
@@ -83,6 +138,8 @@
                 </label>
             </div>
         </div>
+
+
 
     </div>
 

@@ -14,13 +14,11 @@ img {
   border-top-left-radius: 20px;
 }
 
-.btnWrapper {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.2em;
-  letter-spacing: 0.04em;
-}
-
 .btn {
+  font-size: 0.8vw;
+  letter-spacing: 0.04vw;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
   appearance: none;
   display: block;
   width: max-content;
@@ -40,7 +38,14 @@ img {
 
 .btnOuterWrapper {
   display: flex;
-  width: 10vw;
+  flex-wrap: wrap;
+}
+
+#space {
+  display: inline-block;
+  width: max-content;
+  height: 1vh;
+  padding: 20px;
 }
 
 .btn #export {
@@ -57,6 +62,8 @@ img {
 
 #hidden-svg {
   background-color: rgb(242, 242, 242);
+  visibility: hidden;
+  position: absolute;
 }
 
 .preview {
@@ -145,4 +152,53 @@ input[type=range]::-webkit-slider-thumb {
   font-size: 5vw;
   text-align: center;
   border-style: none;
+}
+
+.dropbtn {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.dropbtn:hover,
+.dropbtn:focus {
+  background-color: rgb(241, 241, 241);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  padding: 1vw;
+  display: none;
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.8vw;
+  background-color: white;
+  width: 20vw;
+  height: min-content;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  text-decoration: none;
+  display: block;
+  background-color: white;
+}
+
+.show {
+  display: block;
+}
+
+.Info {
+  margin-top: 1vw;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+  padding-left: 1vw;
+  background-color: rgb(203, 203, 203);
+  color: rgb(255, 255, 255);
 }/*# sourceMappingURL=styles.css.map */

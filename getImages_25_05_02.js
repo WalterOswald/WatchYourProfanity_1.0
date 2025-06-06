@@ -143,16 +143,8 @@ class imageObject {
     }
 
     unFocusImage(elm) {
-        // inActiveImageObject = this;
-        // this.isInActive = true
-
         this.setStyle("border", "px", 0)
         this.setStyle("border-style", "", "none")
-        console.log("duble click")
-
-
-
-
     }
 
 
@@ -169,7 +161,11 @@ class imageObject {
         elm.onmousedown = dragMouseDown;
 
 
+
         function dragMouseDown(e) {
+
+
+
             e = e || window.Event;
             e.preventDefault();
             // get the mouse cursor position at startup:
@@ -278,8 +274,6 @@ class imageObject {
     setStyle(prop, units, value) {
         this.style[prop] = value + units        //Generic varaiables. This function generaly 
         this.img.style[prop] = value + units
-
-
     }
 
     setGridPos(index) {
@@ -296,7 +290,7 @@ class imageObject {
 
             this.setStyle("left", "vw", this.x);
             this.setStyle("top", "vh", this.y);
-            console.log("under 20")
+
 
         } else if ((index + 1) * gridMarginX > 100) {
 
@@ -318,7 +312,7 @@ class imageObject {
 
             this.setStyle("left", "vw", this.x);
             this.setStyle("top", "vh", this.y);
-            console.log("over 20")
+
             gridMarginY = gridMarginY * ProcessNumber
 
 
@@ -330,71 +324,17 @@ class imageObject {
 
     placeOnPage(elm) {
 
-
-
-        if (checkbox1.checked) {
-
-            svgFileElem.addEventListener("change", (event) => {
-                handleSVG(event).then(() => {
-                    console.log("svgPoints after handleSVG:", svgPoints);
-
-                    for (let i = 0; i < imgArray.length; i++) {
-
-                        const imgObj = imgArray[i];
-                        const points = svgPoints[i];
-
-
-                        console.log("i: " + i)
-                        console.log("points:" + points)
-                        console.log("pointsX: " + svgPoints[0].x + "pointsY: " + svgPoints[0].y)
-                        imgObj.x = points.x
-                        imgObj.y = points.y
-
-                        //  imgObj.x = imgObj.x * 100
-                        //imgObj.y = imgObj.y
-
-
-
-                        const topVH = this.viewport_convert(imgObj.y, 0, 1)
-                        const leftVW = this.viewport_convert(imgObj.x, 1, 0)
-
-                        imgObj.setStyle("top", "vh", topVH)
-                        imgObj.setStyle("left", "vw", leftVW)
-
-                        // imgObj.setStyle("top", "px", imgObj.y)
-                        // imgObj.setStyle("left", "px", imgObj.x)
-
-
-                        imgObj.id = 'IMG-Object' + i;
-                        imgObj.dragElement(imgObj.img);
-                        imgObj.img.onclick = () => imgObj.focusImage(imgObj.img)
-                        imgObj.img.onmouseleave = () => imgObj.unFocusImage(imgObj.img)
-                        elm.appendChild(imgObj.img);
-                        //console.log("svgPoints: " + svgPoints[i].x)
-                    }
-
-                });
-            })
-
-            console.log("checked")
-        } else {
-
-            this.setGridPos(elm)
-
-            for (let i = 0; i < imgArray.length; i++) {
-
-
-
-                (this.img).id = 'IMG-Object' + i;
-
-                this.dragElement(this.img);
-                this.img.onclick = () => this.focusImage(this.img)
-                this.img.onmouseleave = () => this.unFocusImage(this.img)
-                elm.appendChild(this.img);
-                // console.log(this.name)
-            }
-
+        this.setGridPos(elm)
+        for (let i = 0; i < imgArray.length; i++) {
+            (this.img).id = 'IMG-Object' + i;
+            this.dragElement(this.img);
+            this.img.onclick = () => this.focusImage(this.img)
+            this.img.onmouseleave = () => this.unFocusImage(this.img)
+            elm.appendChild(this.img);
+            // console.log(this.name)
         }
+
+
 
 
 
@@ -403,7 +343,88 @@ class imageObject {
 
 
 
+
+
+
+
+
+
+
+
+
 }
+
+
+
+svgFileElem.addEventListener("change", (event) => {
+    handleSVG(event).then(() => {
+
+
+        for (let i = 0; i < imgArray.length; i++) {
+
+            const imgObj = imgArray[i];
+            const points = svgPoints[i];
+
+
+
+            imgObj.x = points.x
+            imgObj.y = points.y
+
+
+
+
+
+            const topVH = this.viewport_convert(imgObj.y, 0, 1)
+            const leftVW = this.viewport_convert(imgObj.x, 1, 0)
+
+            imgObj.setStyle("top", "vh", topVH)
+            imgObj.setStyle("left", "vw", leftVW)
+
+        }
+
+    });
+})
+
+
+
+
+
+function placeImagesOnPath() {
+
+    let imagesInHtmlFile = document.getElementById("preview").querySelectorAll("img")
+    imagesInHtmlFile.forEach((img) => {
+        console.log("query selector works")
+        for (let i = 0; i < imgArray.length; i++) {
+
+
+            imgArray[i].setStyle("top", "vh", 0);
+
+            const imgObj = imgArray[i];
+            const points = svgPoints[i];
+
+
+
+            imgObj.x = points.x
+            imgObj.y = points.y
+
+
+            imgObj.setStyle("top", "px", imgObj.x)
+            imgObj.setStyle("left", "px", imgObj.y)
+
+
+
+
+        }
+    }
+
+    )
+
+
+    console.log("place on path button was clicked")
+
+
+}
+window.placeImagesOnPath = placeImagesOnPath
 
 
 
@@ -430,10 +451,7 @@ document.getElementById("sliderZ").addEventListener("change", function (event) {
 
 });
 
-document.getElementById("inputOffX").addEventListener("change", (event) => {
-    gridMarginX = inputOffX.value
 
-})
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
