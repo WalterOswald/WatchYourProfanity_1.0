@@ -6,39 +6,48 @@ img {
 .UIOuter {
   position: absolute;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
+  width: max-content;
   height: auto;
-  width: min-content;
-  background-color: rgb(232, 232, 232);
+  background-color: rgb(244, 244, 244);
   z-index: 320;
-  border-top-left-radius: 20px;
+  padding: 0.4vw;
+  box-shadow: 0px 4px 14px 0.1px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
 }
 
 .btn {
+  appearance: none;
   font-size: 0.8vw;
   letter-spacing: 0.04vw;
-  font-weight: bold;
+  font-weight: normal;
   font-family: Arial, Helvetica, sans-serif;
-  appearance: none;
-  display: block;
-  width: max-content;
-  height: min-content;
-  padding: 1.2vw;
-  border-top: 0px;
-  border-left: 0px;
-  border-right: 0px;
-  border-bottom: 0.5vh;
-  border-color: rgb(255, 255, 255);
-  border-style: solid;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  padding-left: 1.2vw;
+  padding-right: 0.6vw;
+  box-shadow: 0px 2px 4px 0.01px rgb(167, 167, 167);
+  cursor: pointer;
+  text-align: center;
+  margin: 2px;
+  border: none;
+}
+
+button {
+  all: unset;
 }
 
 .btnWrapper :hover {
-  background-color: rgb(242, 242, 242);
+  background-color: rgb(255, 255, 255);
 }
 
 .btnOuterWrapper {
-  display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 #space {
@@ -72,28 +81,10 @@ img {
 
 .grabArea {
   display: block;
-  width: 13vw;
-  height: 1vh;
+  width: 1vw;
+  height: 100%;
   cursor: move;
   background-color: #000000;
-}
-
-.form-control {
-  width: 4vw;
-  font-family: system-ui, sans-serif;
-  font-size: 2rem;
-  font-weight: bold;
-  line-height: 1.1;
-  display: grid;
-  grid-template-columns: 1em auto;
-  gap: 0.5em;
-  background-color: white;
-  border-style: solid;
-  border-top: 0px;
-  border-left: 0px;
-  border-right: 0px;
-  border-bottom: 1vw;
-  border-color: rgb(255, 255, 255);
 }
 
 input[type=file] {
@@ -116,8 +107,10 @@ input[type=submit] {
 .sliderContainer {
   display: block;
   background-color: rgb(244, 244, 244);
-  width: 13vw;
-  padding-bottom: 1.5vh;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 4px 0.01px rgb(167, 167, 167);
+  margin-left: 2vw;
 }
 
 input[type=range] {
@@ -130,13 +123,14 @@ input[type=range] {
 input[type=range]::-webkit-slider-runnable-track {
   height: 6vh;
   background: rgb(197, 197, 197);
+  box-shadow: 0px 2px 4px 0.2px rgb(141, 141, 141);
 }
 
 input[type=range]::-webkit-slider-thumb {
   appearance: none;
   width: 0.8vw;
   height: 6vh;
-  background: rgb(0, 0, 0);
+  background-color: #212121;
   cursor: pointer;
   /* align with track */
 }
@@ -155,18 +149,23 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .dropbtn {
+  display: block;
   background-color: transparent;
-  cursor: pointer;
+  border-style: none;
+  width: 100%;
+  height: auto;
 }
 
 .dropbtn:hover,
 .dropbtn:focus {
-  background-color: rgb(241, 241, 241);
+  background-color: rgb(255, 255, 255);
 }
 
 .dropdown {
+  display: block;
   position: relative;
   display: inline-block;
+  width: 100%;
 }
 
 .dropdown-content {
