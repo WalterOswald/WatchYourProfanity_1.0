@@ -8,56 +8,67 @@ img {
 .UIOuter {
     position: absolute;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
+
+    width: max-content;
     height: auto;
-    width: min-content;
-    background-color: rgb(232, 232, 232);
+    background-color: rgb(244, 244, 244);
+    z-index: 320;
+    padding: .4vw;
+    box-shadow: 0px 4px 14px .1px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
 
-
-
-    border-top-left-radius: 20px;
 }
 
-
-.btnWrapper {
-    font-family: Arial, Helvetica, sans-serif;
-
-    font-size: 1.2em;
-    letter-spacing: .04em;
-}
 
 
 
 .btn {
-
     appearance: none;
-    display: block;
+    font-size: 0.8vw;
+    letter-spacing: 0.04vw;
+    font-weight: normal;
+    font-family: Arial, Helvetica, sans-serif;
 
-    width: max-content;
-    height: min-content;
+    display: flex;
+    justify-content: left;
+    align-items: center;
 
-    padding: 2.45vw;
-    border-top: 0px;
-    border-left: 0px;
-    border-right: 0px;
-    border-bottom: .5vh;
-    border-color: rgb(255, 255, 255);
-    border-style: solid;
+    width: 100%;
+    height: auto;
+    padding-left: 1.2vw;
+    padding-right: .6vw;
 
+    box-shadow: 0px 2px 4px 0.01px rgb(167, 167, 167);
+    cursor: pointer;
+    text-align: center;
+    margin: 2px;
+    border: none;
+}
+
+button {
+    all: unset;
 }
 
 
 .btnWrapper :hover {
-    background-color: rgb(242, 242, 242);
+    background-color: rgb(255, 255, 255);
 }
 
 .btnOuterWrapper {
-    display: flex;
-    width: 10vw;
-
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
 
 }
 
+
+#space {
+    display: inline-block;
+    width: max-content;
+    height: 1vh;
+    padding: 20px;
+}
 
 
 .btn #export {
@@ -78,6 +89,7 @@ img {
 #hidden-svg {
     background-color: rgb(242, 242, 242);
     visibility: hidden;
+    position: absolute;
 }
 
 
@@ -91,15 +103,16 @@ img {
 
 .grabArea {
     display: block;
-    width: 13vw;
-    height: 1vh;
+    width: 1vw;
+    height: 100%;
 
     cursor: move;
 
     background-color: #000000;
-    border-top-left-radius: 18px;
+
 
 }
+
 
 
 
@@ -126,6 +139,7 @@ input[type="submit"] {
     text-align: center;
     width: 13vw;
     background-color: white;
+
 }
 
 
@@ -133,8 +147,11 @@ input[type="submit"] {
 .sliderContainer {
     display: block;
     background-color: rgb(244, 244, 244);
-    width: 13vw;
-    padding-bottom: 1.5vh;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 4px 0.01px rgb(167, 167, 167);
+    margin-left: 2vw;
+
 }
 
 
@@ -153,15 +170,19 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-runnable-track {
     height: 6vh;
     background: rgb(197, 197, 197);
+    box-shadow: 0px 2px 4px 0.2px rgb(141, 141, 141);
+
 
 }
 
 input[type="range"]::-webkit-slider-thumb {
     appearance: none;
-    width: 3vh;
+    width: .8vw;
     height: 6vh;
-    background: rgb(0, 0, 0);
-    border-top-left-radius: 18px;
+    background-color: #212121;
+
+
+
 
     cursor: pointer;
 
@@ -180,5 +201,79 @@ input[type="range"]::-webkit-slider-thumb {
     font-size: 5vw;
     text-align: center;
     border-style: none;
+
+}
+
+
+
+
+
+
+
+
+.dropbtn {
+    display: block;
+    background-color: transparent;
+
+    border-style: none;
+    width: 100%;
+    height: auto;
+
+
+
+
+}
+
+.dropbtn:hover,
+.dropbtn:focus {
+    background-color: rgb(255, 255, 255);
+}
+
+.dropdown {
+    display: block;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+}
+
+.dropdown-content {
+    padding: 1vw;
+
+    display: none;
+    position: absolute;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .8vw;
+    background-color: white;
+    width: 20vw;
+    height: min-content;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+
+    text-decoration: none;
+    display: block;
+    background-color: white;
+}
+
+
+
+
+.show {
+    display: block;
+}
+
+
+.Info {
+    margin-top: 1vw;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    padding-left: 1vw;
+    background-color: rgb(203, 203, 203);
+    color: rgb(255, 255, 255);
 
 }
