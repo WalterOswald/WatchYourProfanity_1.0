@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Favicon/FAVICON.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>WYP1.0</title>
+</head>
+
+<body>
+
+
+    <div id="UI" class="UIOuter">
+
+
+        <div id="UIheader">
+            <div class="grabArea"></div>
+        </div>
+        <div class="btnOuterWrapper">
+
+            <div class="btnWrapper">
+                <label for="fileElem" class="btn">
+                    <h3>IMG</h3><input id="fileElem" type="file" multiple hidden />
+                </label>
+            </div>
+
+
+            <div class="btnWrapper">
+                <label for="svgFileElem" class="btn">
+                    <h3>SVG</h3><input id="svgFileElem" type="file" multiple hidden />
+                </label>
+            </div>
+
+
+
+
+
+            <div class="btnWrapper">
+                <label for="placeOnPath" class="btn">
+                    <h3>ON SVG</h3> <input onclick="placeImagesOnPath()" id="placeOnPath" class="btn" type="submit" />
+                </label>
+            </div>
+
+
+            <div class="btnWrapper">
+                <label for="export" class="btn">
+                    <h3>EXPORT</h3> <input onclick="download_file( 'Test.html' , dynamic_text())" , id="export"
+                        class="btn" type="submit" />
+                </label>
+
+            </div>
+
+
+            <div class="btnWrapper">
+                <label for="dropbtn" class="btn">
+                    <h3>ABOUT</h3><button onclick="drpDwnFunction()" id="dropbtn"></button>
+                </label>
+            </div>
+        </div>
+
+
+
+
+        <div class="dropdown">
+
+
+            <div id="myDropdown" class="dropdown-content ">
+                <h1>Whatch your Profanity</h1>
+                <a>This piece of software was designed as a simple image layout tool for websites.
+                    <br><br>
+                    The inspiration behind this project was a frustrating experience trying to create free-form
+                    image layouts using the Cargo site builder.
+                    The title is derived from the fact that I personally swear a lot when working with software —
+                    especially when it doesn’t work as I expect. Ironically, this software may make you swear a lot
+                    if you seriously try to use it.
+                    There are many bugs and a lot of jank. Full disclosure: I am not a software engineer.<br><br>
+                    My personal belief is that any piece of software should aim to restrict its functionality to a
+                    small number of core tasks.
+                    Overly complex toolboxes often serve to create predefined workflows, which might be beneficial
+                    for efficiency,
+                    but ultimately kill creative problem-solving.
+                    <div class="Info">WYP Sports a limited yet
+                        potent collection of features: <br>
+                        1. Freely position your Images with drag and drop. <br>
+                        2. Controll Size and Z-index of your images. <br>
+                        3. SVG Distribution of Images: <br><br>
+                        To palce Images along a path, first you: <br><br>1. Upload SVG <h4>+SVG</h4>
+                        2. Press <h4>ON SVG</h4> <br>
+                        3. <h4>EXPORT</h4>
+
+                    </div>
+                    <br><br>
+                </a>
+
+            </div>
+        </div>
+
+
+
+        <div class="sliderContainer">
+            <div>
+                <p class="DisplayNumbers">SCL↴</p>
+                <input class="slider" id="sliderW" type="range" min="0" max="10vw" value="2" step=".1">
+                <p class="DisplayNumbers" id="sliderWvalueRead">5 VW
+                </p>
+            </div>
+            <div>
+                <p class="DisplayNumbers">Z-POS↴</p>
+                <input class="slider" id="sliderZ" type="range" min="0" max="100" value="0" step="1">
+                <p class="DisplayNumbers" id="scaleZvaluevalueRead">0</p>
+            </div>
+
+
+
+            <script>
+                const sliderWValue = document.getElementById("sliderW")
+                const sliderZValue = document.getElementById("sliderZ")
+                const sliderNrSvgPtsValue = document.getElementById("NumberOfPtsOnPth")
+
+                sliderWValue.addEventListener("input", () => {
+                    document.getElementById("sliderWvalueRead").textContent = sliderWValue.value + " vw";
+                })
+
+                sliderZValue.addEventListener("input", () => {
+                    document.getElementById("scaleZvaluevalueRead").textContent = sliderZValue.value;
+                })
+
+
+
+
+            </script>
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+    <a href=" #" id="fileSelect"></a>
+
+    <div id="hidden-svg"></div>
+    <div class="preview" id="preview"></div>
+    <div id="fileList">
+
+        <script type="module" src="convertImage.js"></script>
+        <script type="module" src="getImages_25_05_02.js"></script>
+        <script src="25.08.05_ExtractPage.js"></script>
+        <script src="dragUi.js"></script>
+        <script type="module" src="imagesOnPath.js"></script>
+
+    </div>
+</body>
+
+</html>

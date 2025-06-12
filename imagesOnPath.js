@@ -91,7 +91,7 @@ export async function prcsPath(doc) {
 
 
 
-    let numberOfSamples = 300 //imgArray.length;
+    let numberOfSamples = 200 //imgArray.length;
     var bbox
     var svgPaths
 
